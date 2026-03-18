@@ -11,7 +11,7 @@ export default function BioData(){ //parent commponet, component utama
                 alamat="Pekanbaru, Riau"
                 hobi="Membaca dan Menggambar"
                 prodi="Sistem Informasi"
-                Kampus ="Politeknik Caltex Riau"/>
+                kampus ="Politeknik Caltex Riau"/>
             <QuoteText/>
         </div>
     )
@@ -47,7 +47,7 @@ function UserCard(props){ // prop component, component yang menerima data dari c
             <p>Alamat: {props.alamat}</p>
             <p>Hobi: {props.hobi}</p>
             <p>Prodi : {props.prodi}</p>
-            <p>Kampus: {props.Kampus}</p>
+            <p>Kampus: {props.kampus}</p>
         </div>
     )
 }
