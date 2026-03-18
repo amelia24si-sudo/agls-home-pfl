@@ -1,0 +1,61 @@
+/* Styling untuk keseluruhan halaman - Nuansa Ladang Hijau */
+body {
+    /* Menggunakan font bulat yang santai, dengan fallback Arial */
+    font-family: 'Quicksand', 'Comic Sans MS', 'Arial', sans-serif; 
+    background-color: #d1e2c4; /* Hijau pastel ala rumput */
+    color: #4a3b32; /* Cokelat tanah tua untuk teks agar tidak terlalu kontras */
+    margin: 0;
+    padding: 20px;
+    /* Membuat tekstur polkadot samar ala rumput di game 2D */
+    background-image: radial-gradient(#b5c9a7 20%, transparent 20%);
+    background-size: 20px 20px; 
+}
+
+/* Container utama - Papan Kayu / Kertas Perkamen */
+.card {
+    max-width: 600px;
+    margin: 30px auto;
+    background: #fff9e6; /* Warna krem hangat / perkamen */
+    padding: 30px;
+    border-radius: 16px; /* Sudut membulat yang bersahabat */
+    border: 4px solid #8c5a35; /* Bingkai cokelat kayu tebal */
+    /* Efek 3D timbul khas UI Game */
+    box-shadow: 0 8px 0 #8c5a35, 0 12px 20px rgba(0, 0, 0, 0.2); 
+}
+
+/* Header utama - Judul ala Game */
+h1 {
+    color: #e07a5f; /* Merah bata / Terakota hangat */
+    text-align: center;
+    font-size: 2.2em;
+    text-transform: capitalize;
+    /* Bayangan bertumpuk agar teks terlihat timbul dan ceria */
+    text-shadow: 2px 2px 0px #f4a261, 4px 4px 0px rgba(0,0,0,0.1); 
+    margin-bottom: 15px;
+}
+
+/* Paragraf */
+p {
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 500;
+}
+
+/* Garis pemisah - Jahitan Karung Goni */
+hr {
+    border: none;
+    border-top: 4px dashed #a8b894; /* Garis putus-putus ala jahitan */
+    margin: 20px 0;
+}
+
+/* Greeting - Pesan Penutup Khas Petani */
+small {
+    display: block;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+    color: #6a994e; /* Hijau daun segar */
+    margin-top: 20px;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
