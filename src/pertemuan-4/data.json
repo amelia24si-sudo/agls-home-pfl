@@ -1,0 +1,543 @@
+[
+    {
+        "id": "CS-001",
+        "service_name": "Neural Link Calibration",
+        "provider": "Arasaka Neuro-Tech",
+        "category": "Augmentation",
+        "status": "Stable",
+        "image_url": "https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "latency": "0.02ms",
+            "sync_rate": "99.8%",
+            "heat_output": "Low"
+        },
+        "technical_requirements": {
+            "min_os": "NeuralOS v4.2",
+            "hardware": [
+                "Bio-Interface Port",
+                "Cortex Stabilizer"
+            ],
+            "clearance_level": "Level 2"
+        },
+        "client_reviews": [
+            {
+                "user": "Ghost_In_Shell",
+                "rating": 5,
+                "comment": "Zero lag after the patch."
+            }
+        ]
+    },
+    {
+        "id": "CS-002",
+        "service_name": "Deep Net Diving Escort",
+        "provider": "Black Ice Security",
+        "category": "Mercenary",
+        "status": "Available",
+        "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "protection_level": "Titanium",
+            "trace_resistance": "High",
+            "uptime": "100%"
+        },
+        "technical_requirements": {
+            "min_os": "Net-Runner Shell v1.0",
+            "hardware": [
+                "Cyberdeck Mk.5"
+            ],
+            "clearance_level": "None"
+        },
+        "client_reviews": [
+            {
+                "user": "Data_Leech",
+                "rating": 5,
+                "comment": "Survived a Corporate ICE thanks to them."
+            }
+        ]
+    },
+    {
+        "id": "CS-003",
+        "service_name": "Synthetic Liver Replacement",
+        "provider": "Bio-Dyne Corp",
+        "category": "Medical",
+        "status": "In-Stock",
+        "image_url": "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "toxin_filtering": "95%",
+            "durability": "15 years",
+            "rejection_risk": "2%"
+        },
+        "technical_requirements": {
+            "min_os": "N/A",
+            "hardware": [
+                "Nano-Suture Kit"
+            ],
+            "clearance_level": "Citizen"
+        },
+        "client_reviews": [
+            {
+                "user": "Party_Animal_2077",
+                "rating": 5,
+                "comment": "Can drink synthetic whiskey again!"
+            }
+        ]
+    },
+    {
+        "id": "CS-004",
+        "service_name": "Memory Erasure",
+        "provider": "Total Recall Inc.",
+        "category": "Psychology",
+        "status": "Restricted",
+        "image_url": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "precision": "High-Res",
+            "recovery_risk": "0.01%",
+            "side_effects": "Mild Amnesia"
+        },
+        "technical_requirements": {
+            "min_os": "BrainWare 2.0",
+            "hardware": [
+                "Neuro-Probe"
+            ],
+            "clearance_level": "Level 4"
+        },
+        "client_reviews": [
+            {
+                "user": "Anonymous",
+                "rating": 5,
+                "comment": "I don't remember why I used this, so it works!"
+            }
+        ]
+    },
+    {
+        "id": "CS-005",
+        "service_name": "Kiroshi Optical MK.3 Tuning",
+        "provider": "Kiroshi Optics",
+        "category": "Augmentation",
+        "status": "Stable",
+        "image_url": "https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "zoom_range": "100x",
+            "thermal_mode": "Enabled",
+            "refresh_rate": "240Hz"
+        },
+        "technical_requirements": {
+            "min_os": "Kiroshi Firmware 8",
+            "hardware": [
+                "Optical Socket"
+            ],
+            "clearance_level": "Level 1"
+        },
+        "client_reviews": [
+            {
+                "user": "Sniper_X",
+                "rating": 5,
+                "comment": "Can see a fly on a corpo's nose from 1km."
+            }
+        ]
+    },
+    {
+        "id": "CS-006",
+        "service_name": "Black Market Encryption",
+        "provider": "The Shadow Network",
+        "category": "Illegal",
+        "status": "Glitchy",
+        "image_url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "bits": "1024-Quantum",
+            "crack_time": "100 years",
+            "stealth": "Ghost Mode"
+        },
+        "technical_requirements": {
+            "min_os": "Linux-Zero",
+            "hardware": [
+                "Encrypted Data-Chip"
+            ],
+            "clearance_level": "Underworld"
+        },
+        "client_reviews": [
+            {
+                "user": "Runner01",
+                "rating": 3,
+                "comment": "UI is terrible, but the math is solid."
+            }
+        ]
+    },
+    {
+        "id": "CS-007",
+        "service_name": "Tactical Drone Swarm Rental",
+        "provider": "Militech Defense",
+        "category": "Security",
+        "status": "Active",
+        "image_url": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "units": "12 Drones",
+            "battery_life": "45 mins",
+            "firepower": "Class C"
+        },
+        "technical_requirements": {
+            "min_os": "Militech Command v3",
+            "hardware": [
+                "Remote Link Collar"
+            ],
+            "clearance_level": "Mercenary"
+        },
+        "client_reviews": [
+            {
+                "user": "Solo_King",
+                "rating": 4,
+                "comment": "Great for suppressive fire."
+            }
+        ]
+    },
+    {
+        "id": "CS-008",
+        "service_name": "Hover-Bike Refurbishment",
+        "provider": "Rust & Chrome Garage",
+        "category": "Transport",
+        "status": "Limited",
+        "image_url": "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "max_speed": "320 km/h",
+            "altitude_limit": "2 meters",
+            "fuel_type": "Fusion Cell"
+        },
+        "technical_requirements": {
+            "min_os": "Auto-Drive 2.1",
+            "hardware": [
+                "Anti-Grav Thrusters"
+            ],
+            "clearance_level": "None"
+        },
+        "client_reviews": [
+            {
+                "user": "Nomad_J",
+                "rating": 5,
+                "comment": "Fastest hunk of junk in the Badlands."
+            }
+        ]
+    },
+    {
+        "id": "CS-009",
+        "service_name": "Braindance Editing",
+        "provider": "Lizzy's Den",
+        "category": "Entertainment",
+        "status": "Stable",
+        "image_url": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "sensory_depth": "8K Raw",
+            "emotional_sync": "High",
+            "safe_mode": "Optional"
+        },
+        "technical_requirements": {
+            "min_os": "BD-Player Pro",
+            "hardware": [
+                "Neural Headset"
+            ],
+            "clearance_level": "18+"
+        },
+        "client_reviews": [
+            {
+                "user": "V_Cloud",
+                "rating": 5,
+                "comment": "Feels more real than reality."
+            }
+        ]
+    },
+    {
+        "id": "CS-010",
+        "service_name": "Combat Stimulant Infusion",
+        "provider": "Zetatech Labs",
+        "category": "Bio-Tech",
+        "status": "Restricted",
+        "image_url": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "adrenaline_boost": "+400%",
+            "pain_suppression": "90%",
+            "crash_duration": "4 hours"
+        },
+        "technical_requirements": {
+            "min_os": "Heart-Rate Monitor",
+            "hardware": [
+                "Auto-Injector"
+            ],
+            "clearance_level": "Level 3"
+        },
+        "client_reviews": [
+            {
+                "user": "Psycho_Slayer",
+                "rating": 4,
+                "comment": "I can see bullets moving. A bit itchy."
+            }
+        ]
+    },
+    {
+        "id": "CS-011",
+        "service_name": "Ghosting (Identity Wipe)",
+        "provider": "The Faceless",
+        "category": "Illegal",
+        "status": "Underground",
+        "image_url": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "anonymity_score": "Perfect",
+            "database_deletion": "Global",
+            "new_id_quality": "AAA"
+        },
+        "technical_requirements": {
+            "min_os": "N/A",
+            "hardware": [
+                "Biometric Scrambler"
+            ],
+            "clearance_level": "Deep Pocket"
+        },
+        "client_reviews": [
+            {
+                "user": "Ex_Corpo",
+                "rating": 5,
+                "comment": "The police forgot I ever existed."
+            }
+        ]
+    },
+    {
+        "id": "CS-012",
+        "service_name": "Mantis Blade Sharpening",
+        "provider": "Ripperdoc Victor",
+        "category": "Augmentation",
+        "status": "Stable",
+        "image_url": "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "edge_sharpness": "Molecular",
+            "deployment_speed": "0.1s",
+            "material": "Thermal Carbon"
+        },
+        "technical_requirements": {
+            "min_os": "Reflex Tuner v5",
+            "hardware": [
+                "Mantis Blades MK.2"
+            ],
+            "clearance_level": "None"
+        },
+        "client_reviews": [
+            {
+                "user": "Street_Samurai",
+                "rating": 5,
+                "comment": "Cuts through steel like soy-butter."
+            }
+        ]
+    },
+    {
+        "id": "CS-013",
+        "service_name": "AI Companion Patch",
+        "provider": "SoftSys",
+        "category": "Software",
+        "status": "Stable",
+        "image_url": "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "empathy_level": "Adjustable",
+            "processing_power": "4 TFLOPS",
+            "voice_banks": "500+"
+        },
+        "technical_requirements": {
+            "min_os": "Nexus AI Core",
+            "hardware": [
+                "Holographic Projector"
+            ],
+            "clearance_level": "Citizen"
+        },
+        "client_reviews": [
+            {
+                "user": "Lonely_Runner",
+                "rating": 4,
+                "comment": "My AI now sounds like my ex. 5/5."
+            }
+        ]
+    },
+    {
+        "id": "CS-014",
+        "service_name": "Smart Gun Link Repair",
+        "provider": "Tsunami Urban",
+        "category": "Weapons",
+        "status": "Active",
+        "image_url": "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "targeting_accuracy": "98%",
+            "auto_lock_speed": "0.3s",
+            "recoil_control": "+15%"
+        },
+        "technical_requirements": {
+            "min_os": "SmartLink v2.0",
+            "hardware": [
+                "Palm Subdermal Grip"
+            ],
+            "clearance_level": "Level 1"
+        },
+        "client_reviews": [
+            {
+                "user": "Trigger_Happy",
+                "rating": 5,
+                "comment": "I don't even have to aim anymore."
+            }
+        ]
+    },
+    {
+        "id": "CS-015",
+        "service_name": "Cryogenic Pod Storage",
+        "provider": "FreezeCorp",
+        "category": "Medical",
+        "status": "Stable",
+        "image_url": "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "temp": "-196C",
+            "power_redundancy": "Triple",
+            "safety_rating": "99.9%"
+        },
+        "technical_requirements": {
+            "min_os": "N/A",
+            "hardware": [
+                "Stasis Implant"
+            ],
+            "clearance_level": "Platinum"
+        },
+        "client_reviews": [
+            {
+                "user": "Rich_Heir",
+                "rating": 5,
+                "comment": "See you in 2100, losers."
+            }
+        ]
+    },
+    {
+        "id": "CS-016",
+        "service_name": "Maglev Courier Track",
+        "provider": "Night City Rail",
+        "category": "Logistics",
+        "status": "Active",
+        "image_url": "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "delivery_time": "15 mins",
+            "max_weight": "50kg",
+            "insurance": "Full"
+        },
+        "technical_requirements": {
+            "min_os": "N/A",
+            "hardware": [
+                "Digital QR Tag"
+            ],
+            "clearance_level": "None"
+        },
+        "client_reviews": [
+            {
+                "user": "Fixer_Dex",
+                "rating": 4,
+                "comment": "Reliable for small tech packages."
+            }
+        ]
+    },
+    {
+        "id": "CS-017",
+        "service_name": "Subdermal Armor Plating",
+        "provider": "Kang Tao",
+        "category": "Augmentation",
+        "status": "Stable",
+        "image_url": "https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "armor_rating": "Epic",
+            "flexibility": "90%",
+            "weight_penalty": "-5%"
+        },
+        "technical_requirements": {
+            "min_os": "Body-Mod Sync v3",
+            "hardware": [
+                "Titanium Bone Lacing"
+            ],
+            "clearance_level": "Level 4"
+        },
+        "client_reviews": [
+            {
+                "user": "Tank_Buster",
+                "rating": 5,
+                "comment": "Walked away from a shotgun blast."
+            }
+        ]
+    },
+    {
+        "id": "CS-018",
+        "service_name": "Holographic Ad Blocker",
+        "provider": "Anti-Corpo Squad",
+        "category": "Software",
+        "status": "Glitchy",
+        "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "ad_removal": "99%",
+            "ghost_mode": "Enabled",
+            "data_privacy": "High"
+        },
+        "technical_requirements": {
+            "min_os": "EyeOS OpenSource",
+            "hardware": [
+                "Optic Bypass Chip"
+            ],
+            "clearance_level": "None"
+        },
+        "client_reviews": [
+            {
+                "user": "No_Logo",
+                "rating": 4,
+                "comment": "Finally, the sky is just dark again."
+            }
+        ]
+    },
+    {
+        "id": "CS-019",
+        "service_name": "Quantum Server Rental",
+        "provider": "Network 54",
+        "category": "Data",
+        "status": "Maintenance",
+        "image_url": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "compute_speed": "Exascale",
+            "cooling": "Liquid Nitrogen",
+            "security": "Bio-Lock"
+        },
+        "technical_requirements": {
+            "min_os": "Quantum-X",
+            "hardware": [
+                "Direct Uplink Fibre"
+            ],
+            "clearance_level": "Corporate"
+        },
+        "client_reviews": [
+            {
+                "user": "Data_Miner",
+                "rating": 2,
+                "comment": "Too much downtime this week."
+            }
+        ]
+    },
+    {
+        "id": "CS-020",
+        "service_name": "Bio-Metric Forgery",
+        "provider": "The Ink Shop",
+        "category": "Illegal",
+        "status": "Hidden",
+        "image_url": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=400",
+        "performance_metrics": {
+            "dna_match": "99.9%",
+            "iris_spoof": "Success",
+            "fingerprint": "Perfect"
+        },
+        "technical_requirements": {
+            "min_os": "N/A",
+            "hardware": [
+                "Synthetic Skin Printer"
+            ],
+            "clearance_level": "Black Market"
+        },
+        "client_reviews": [
+            {
+                "user": "Heist_Master",
+                "rating": 5,
+                "comment": "Got into the vault with the CEO's hand."
+            }
+        ]
+    }
+]
