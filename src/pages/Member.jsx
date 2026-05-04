@@ -1,14 +1,34 @@
-import { MdPeople } from "react-icons/md";
+import { MdPeople, MdPersonAdd } from "react-icons/md";
 
 export default function Member() {
+    
+    // Fungsi untuk menangani aksi klik tombol Add Member
+    const handleAddMember = () => {
+        // TODO: Masukkan logika aksi Anda di sini
+        // Contoh: Membuka modal form tambah member atau navigasi ke halaman form
+        console.log("Tombol Add Member ditekan!");
+    };
+
     return (
         <div className="p-4">
+            
+            {/* Welcome Text */}
             <div className="mb-3">
                 <p className="text-gray-600 text-lg">Welcome,</p>
                 <h1 className="text-4xl font-extrabold text-[#2B3242]">Amelia Golisa</h1>
             </div>
 
-            <h2 className="text-3xl font-bold text-[#2B3242] mb-6">Member</h2>
+            {/* Title & Add Member Button */}
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-3xl font-bold text-[#2B3242]">Member</h2>
+                <button 
+                    onClick={handleAddMember} 
+                    className="bg-[#2B3242] hover:bg-[#1a1e28] text-[#FCA311] font-semibold py-2 px-5 rounded-xl flex items-center gap-2 shadow-md transition duration-200 cursor-pointer"
+                >
+                    <MdPersonAdd className="text-xl" />
+                    Add member
+                </button>
+            </div>
 
             {/* Grid Member */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -30,7 +50,7 @@ export default function Member() {
     );
 }
 
-// Sub-komponen StatCard yang sama
+// Sub-komponen StatCard
 function StatCard({ label, value }) {
     return (
         <div className="bg-[#2B3242] w-44 h-48 rounded-2xl flex flex-col justify-center items-center p-4 shadow-md">

@@ -1,4 +1,4 @@
-import { FaUserFriends, FaMoneyBillWave, FaPercentage } from "react-icons/fa";
+import { FaUserFriends, FaMoneyBillWave, FaPercentage, FaPrint } from "react-icons/fa";
 
 export default function Dashboard() {
     return (
@@ -10,8 +10,16 @@ export default function Dashboard() {
                 <h1 className="text-4xl font-extrabold text-[#2B3242]">Amelia Golisa</h1>
             </div>
 
-            {/* Dashboard Title */}
-            <h2 className="text-3xl font-bold text-[#2B3242] mb-6">Dashboard</h2>
+            {/* Dashboard Title & Print Button */}
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-3xl font-bold text-[#2B3242]">Dashboard</h2>
+                <button 
+                    className="bg-[#2B3242] hover:bg-[#1a1e28] text-[#FCA311] font-semibold py-2 px-5 rounded-xl flex items-center gap-2 shadow-md transition duration-200"
+                >
+                    <FaPrint className="text-lg" />
+                    Print report
+                </button>
+            </div>
 
             {/* Top Grid: Active Member & Income (Gray Placeholders) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
