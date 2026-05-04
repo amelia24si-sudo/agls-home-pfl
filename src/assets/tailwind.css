@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Impact';
+    src: url('./fonts/Impact.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/Montserrat-Regular.ttf') format('truetype');
+}
+
+@theme{
+    --font-impact: 'Impact', sans-serif;
+    --font-montserrat: 'Montserrat', sans-serif;
+    --color-primary1: #2D374D;
+    --color-primary2: #FF9900;
+    --color-primary3: #8391B0;
+    --color-primary4: #FFFFFF;
+}
+
+body {
+    @apply font-montserrat;
+}
