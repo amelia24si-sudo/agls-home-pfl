@@ -59,15 +59,15 @@ export default function Login() {
           id="email"
           name="email"
           onChange={handleChange}
-          className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FFA000] transition-all placeholder-gray-400"
-          placeholder="Email Address"
+          placeholder="Email address"
+        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
           required
         />
       </div>
       
       {/* Input Password */}
       <div className="mb-8">
-        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-300">
+        <label htmlFor="password" className="block mb-2 text-sm font-montserrat-medium text-gray-300">
           Password
         </label>
         <input
@@ -75,7 +75,7 @@ export default function Login() {
           id="password"
           name="password"
           onChange={handleChange}
-          className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FFA000] transition-all placeholder-gray-400"
+         className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
           placeholder="Password"
           required
         />
@@ -85,7 +85,7 @@ export default function Login() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FFA000] hover:bg-[#e69000] rounded-lg shadow-lg flex items-center justify-center"
+        className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FF8E29] hover:bg-[#e67e22] rounded-lg shadow-lg flex items-center justify-center font-dmsans"
       >
         {loading ? <ImSpinner2 className="animate-spin me-2" /> : null}
         Login

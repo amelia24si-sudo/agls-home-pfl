@@ -4,7 +4,7 @@ export default function Forgot() {
     return (
         <div className="w-full">
             {/* Judul Halaman */}
-            <h2 className="text-3xl font-extrabold text-white tracking-wide text-center mb-8">
+            <h2 className="text-3xl font-montserrat text-white tracking-wide text-center mb-8">
                 Forgot Password
             </h2>
 
@@ -17,7 +17,7 @@ export default function Forgot() {
                     <input
                         type="email"
                         id="email"
-                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FFA000] transition-all placeholder-gray-400"
+                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
                         placeholder="Email Address"
                         required
                     />
@@ -25,7 +25,7 @@ export default function Forgot() {
 
                 <button
                     type="submit"
-                    className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FFA000] hover:bg-[#e69000] rounded-lg shadow-lg"
+                    className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FF8E29] hover:bg-[#e67e22] rounded-lg shadow-lg flex items-center justify-center font-dmsans"
                 >
                     Send Reset Link
                 </button>

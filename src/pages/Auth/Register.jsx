@@ -11,14 +11,14 @@ export default function Register() {
             {/* Form */}
             <form>
                 <div className="mb-5">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-300">
+                    <label htmlFor="email" className="block mb-2 text-sm font-montserrat text-gray-300">
                         Email Address
                     </label>
                     <input
                         type="email"
                         id="email"
-                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FFA000] transition-all placeholder-gray-400"
-                        placeholder="Email Address"
+                        placeholder="Email address"
+                       className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
                         required
                     />
                 </div>
@@ -30,7 +30,7 @@ export default function Register() {
                     <input
                         type="password"
                         id="password"
-                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FFA000] transition-all placeholder-gray-400"
+                       className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
                         placeholder="Password"
                         required
                     />
@@ -43,7 +43,7 @@ export default function Register() {
                     <input
                         type="password"
                         id="confirmPassword"
-                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FFA000] transition-all placeholder-gray-400"
+                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
                         placeholder="Confirm Password"
                         required
                     />
@@ -51,7 +51,7 @@ export default function Register() {
 
                 <button
                     type="submit"
-                    className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FFA000] hover:bg-[#e69000] rounded-lg shadow-lg"
+                    className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FF8E29] hover:bg-[#e67e22] rounded-lg shadow-lg flex items-center justify-center font-dmsans"
                 >
                     Registers
                 </button>
@@ -60,7 +60,7 @@ export default function Register() {
             {/* Link Login */}
             <div className="mt-6 text-center">
                 <span className="text-sm text-gray-400">Already have an account? </span>
-                <Link to="/login" className="text-sm text-[#FFA000] hover:text-white transition-colors">
+                <Link to="/login" className="text-sm text-[#FF8E29] hover:text-white transition-colors">
                     Login here
                 </Link>
             </div>

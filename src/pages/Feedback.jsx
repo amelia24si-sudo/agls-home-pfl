@@ -1,6 +1,6 @@
 export default function Feedback() {
     return (
-        <div className="p-4">
+        <div className="p-4 font-dmsans">
             <div className="mb-3">
                 <p className="text-gray-600 text-lg">Welcome,</p>
                 <h1 className="text-4xl font-extrabold text-[#2B3242]">Amelia Golisa</h1>

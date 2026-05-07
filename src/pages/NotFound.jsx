@@ -1,117 +1,90 @@
-import React from "react";
-import { Link } from "react-router-dom"; // Pastikan menggunakan react-router untuk navigasi
+import { Link } from "react-router-dom";
+import { FaGhost, FaArrowLeft } from "react-icons/fa";
 
 export default function NotFound() {
   return (
-    <div className=" flex flex-col items-center justify-center p-0 text-center">
-      {/* Container Gambar/Ikon 404 */}
-      <div className="relative mb-8">
-        {/* Tali Penggantung */}
-        <div className="w-1 h-16 bg-gray-800 mx-auto rounded-full"></div>
-        
-        {/* Papan 404 */}
-        <div className="bg-white border-4 border-gray-800 px-12 py-6 rounded-lg shadow-[8px_8px_0px_rgba(0,0,0,0.1)] relative transform -rotate-2">
-           {/* Paku/Titik Putih */}
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-gray-800 rounded-full z-10"></div>
-          
-          <h1 className="text-8xl font-poppins font-bold text-gray-800 tracking-tighter">
-            404
-          </h1>
-        </div>
+    <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center font-dmsans">
+      <div className="relative mb-10">
+        <FaGhost className="text-9xl text-[#D9D9D9] animate-bounce" />
+        <h1 className="text-9xl font-black text-[#2B3242] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-90 font-dmsans">
+          404
+        </h1>
       </div>
+      
+      <h2 className="text-4xl font-bold text-[#2B3242] mb-4">Halaman Tidak Ditemukan</h2>
+      <p className="text-gray-500 max-w-md mb-8 text-lg">
+        Maaf, sepertinya halaman yang Anda cari telah dipindahkan atau tidak pernah ada di server kami.
+      </p>
 
-      {/* Teks Deskripsi */}
-      <div className="max-w-md">
-        <h2 className="text-3xl font-poppins text-gray-800 mb-4">
-          Waduh! Halaman Hilang
-        </h2>
-        <p className="text-latar opacity-90 font-barlow leading-relaxed">
-          Maaf, halaman yang kamu cari tidak dapat ditemukan atau telah dipindahkan ke dimensi lain.
-        </p>
-
-        {/* Tombol Kembali */}
-        <Link
-          to="/"
-          className="inline-block bg-primary2 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-hijau transition-all duration-300 transform hover:scale-105"
-        >
-          Kembali ke Dashboard
-        </Link>
-      </div>
+      <Link 
+        to="/" 
+        className="flex items-center gap-2 bg-[#FF8E29] hover:bg-[#2B3242] text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg group font-dmsans"
+      >
+        <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+        Kembali ke Dashboard
+      </Link>
     </div>
   );
 }
-
 export function BadRequest() {
   return (
-    <div className="flex flex-col items-center justify-center p-0 text-center">
-      <div className="relative mb-8">
-        <div className="w-1 h-16 bg-gray-800 mx-auto rounded-full"></div>
-        <div className="bg-white border-4 border-gray-800 px-12 py-6 rounded-lg shadow-[8px_8px_0px_rgba(0,0,0,0.1)] relative transform rotate-2">
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-gray-800 rounded-full z-10"></div>
-          <h1 className="text-8xl font-poppins font-bold text-kuning tracking-tighter">
-            400
-          </h1>
-        </div>
+    <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center font-dmsans">
+      <div className="animate-pulse">
+        <MdSyncProblem className="text-9xl text-red-600 mb-4" />
       </div>
-      <div className="max-w-md">
-        <h2 className="text-3xl font-poppins text-gray-800 mb-4">Permintaan Bermasalah</h2>
-        <p className="text-teks-samping font-barlow mb-8 leading-relaxed">
-          Ups! Server tidak mengerti apa yang kamu minta. Coba periksa kembali data atau koneksimu.
-        </p>
-        <Link to="/" className="inline-block bg-primary2 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:opacity-90 transition-all transform hover:scale-105">
-          Coba Lagi
-        </Link>
-      </div>
+      
+      <h2 className="text-4xl font-bold text-[#2B3242] mb-2">Server Sedang Down</h2>
+      <p className="text-gray-500 max-w-md mb-8 text-lg">
+        Terjadi kesalahan internal pada server kami. Tim teknis sedang memperbaikinya. Coba segarkan halaman dalam beberapa saat.
+      </p>
+
+      <button 
+        onClick={() => window.location.reload()}
+        className="bg-[#FF8E29] hover:bg-[#e67e22] text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all font-dmsans"
+      >
+        Coba Segarkan Halaman
+      </button>
     </div>
   );
 }
 
-export function Unauthorized() {
+export default function Unauthorized() {
   return (
-    <div className="flex flex-col items-center justify-center p-0 text-center">
-      <div className="relative mb-8">
-        <div className="w-1 h-16 bg-gray-800 mx-auto rounded-full"></div>
-        <div className="bg-white border-4 border-gray-800 px-12 py-6 rounded-lg shadow-[8px_8px_0px_rgba(0,0,0,0.1)] relative transform -rotate-1">
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-gray-800 rounded-full z-10"></div>
-          <h1 className="text-8xl font-poppins font-bold text-biru tracking-tighter">
-            401
-          </h1>
-        </div>
+    <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center font-dmsans">
+      <div className="bg-[#2B3242]/10 p-8 rounded-full mb-6">
+        <FaLock className="text-7xl text-[#2B3242]" />
       </div>
-      <div className="max-w-md">
-        <h2 className="text-3xl font-poppins text-gray-800 mb-4">Siapa Kamu?</h2>
-        <p className="text-teks-samping font-barlow mb-8 leading-relaxed">
-          Halaman ini terkunci. Kamu harus masuk (login) terlebih dahulu untuk melihat konten ini.
-        </p>
-        <Link to="/login" className="inline-block bg-primary1 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:opacity-90 transition-all transform hover:scale-105">
-          Login Sekarang
-        </Link>
-      </div>
+      
+      <h2 className="text-4xl font-bold text-[#2B3242] mb-4">Akses Ditolak</h2>
+      <p className="text-gray-500 max-w-md mb-8 text-lg">
+        Sesi Anda mungkin telah berakhir atau Anda belum masuk. Silakan login kembali untuk mengakses halaman ini.
+      </p>
+
+      <Link 
+        to="/login" 
+        className="bg-[#2B3242] hover:bg-[#FF8E29] text-white font-bold py-3 px-10 rounded-xl transition-all duration-300 shadow-md font-dmsans"
+      >
+        Login Sekarang
+      </Link>
     </div>
   );
 }
-
-export function Forbidden() {
+export default function Forbidden() {
   return (
-    <div className="flex flex-col items-center justify-center p-0 text-center">
-      <div className="relative mb-8">
-        <div className="w-1 h-16 bg-gray-800 mx-auto rounded-full"></div>
-        <div className="bg-white border-4 border-gray-800 px-12 py-6 rounded-lg shadow-[8px_8px_0px_rgba(0,0,0,0.1)] relative transform rotate-3">
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-gray-800 rounded-full z-10"></div>
-          <h1 className="text-8xl font-poppins font-bold text-merah tracking-tighter">
-            403
-          </h1>
-        </div>
-      </div>
-      <div className="max-w-md">
-        <h2 className="text-3xl font-poppins text-gray-800 mb-4">Akses Ditolak!</h2>
-        <p className="text-teks-samping font-barlow mb-8 leading-relaxed">
-          Maaf, kamu tidak memiliki izin yang cukup untuk mengacak-ngacak halaman ini.
-        </p>
-        <Link to="/" className="inline-block bg-red text-white font-bold py-3 px-8 rounded-full shadow-lg hover:opacity-90 transition-all transform hover:scale-105">
-          Balik Kanan
-        </Link>
-      </div>
+    <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center font-dmsans">
+      <MdOutlineSecurityUpdateWarning className="text-9xl text-[#FF8E29] mb-4" />
+      
+      <h2 className="text-4xl font-bold text-[#2B3242] mb-4">Area Terlarang</h2>
+      <p className="text-gray-500 max-w-sm mb-8 text-lg">
+        Anda tidak memiliki izin akses untuk melihat halaman ini. Silakan hubungi Super Admin jika ini adalah kesalahan.
+      </p>
+
+      <Link 
+        to="/" 
+        className="border-2 border-[#2B3242] text-[#2B3242] hover:bg-[#2B3242] hover:text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 font-dmsans"
+      >
+        Balik Kanan, Bubar Jalan!
+      </Link>
     </div>
   );
 }

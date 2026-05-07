@@ -10,15 +10,24 @@
     src: url('./fonts/Montserrat-Regular.ttf') format('truetype');
 }
 
-@theme{
+@theme {
+    /* Fonts */
     --font-impact: 'Impact', sans-serif;
     --font-montserrat: 'Montserrat', sans-serif;
-    --color-primary1: #2D374D;
-    --color-primary2: #FF9900;
-    --color-primary3: #8391B0;
-    --color-primary4: #FFFFFF;
-}
+    --font-dmsans: 'DM Sans', sans-serif;
 
+    /* Zeus Gym Brand Colors */
+    --color-primary1: #2B3242;       /* Dark Navy (Sidebar & Titles) */
+    --color-primary2: #FF8E29;       /* Zeus Orange (Accent & Icons) */
+    --color-primary3: #8391B0;       /* Muted Blue/Gray text */
+    --color-primary4: #FFFFFF;       /* Pure White */
+    
+    /* Additional UI Colors */
+    --color-sidebar-dark: #1F2430;   /* Deeper Navy for Sidebar Background */
+    --color-placeholder: #D9D9D9;    /* Gray for Empty Cards/Placeholders */
+    --color-danger: #B91C1C;         /* Red for Delete Buttons */
+    --color-bg-light: #F8F9FA;       /* Light Gray for Page Background */
+}
 body {
-    @apply font-montserrat;
+    @apply font-dmsans;
 }
