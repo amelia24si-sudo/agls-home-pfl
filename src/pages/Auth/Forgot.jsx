@@ -1,42 +1,59 @@
 import { Link } from "react-router-dom";
+import { MdEmail, MdArrowBack } from "react-icons/md";
 
 export default function Forgot() {
     return (
-        <div className="w-full">
-            {/* Judul Halaman */}
-            <h2 className="text-3xl font-montserrat text-white tracking-wide text-center mb-8">
-                Forgot Password
+        <div className="font-dmsans">
+            {/* Header Text */}
+            <h2 className="text-2xl font-bold text-white mb-2 text-center">
+                Forgot Your Password?
             </h2>
+            
+            <p className="text-sm text-primary3 mb-8 text-center leading-relaxed">
+                Enter your email address and we'll send you a link to reset your 
+                access to the Zeus Gym panel.
+            </p>
 
-            {/* Form */}
-            <form>
-                <div className="mb-8">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-300">
+            <form onSubmit={(e) => e.preventDefault()}>
+                <div className="mb-6">
+                    <label
+                        htmlFor="email"
+                        className="block text-xs font-bold text-primary3 mb-2 uppercase tracking-widest"
+                    >
                         Email Address
                     </label>
-                    <input
-                        type="email"
-                        id="email"
-                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
-                        placeholder="Email Address"
-                        required
-                    />
+                    <div className="relative">
+                        <input
+                            type="email"
+                            id="email"
+                            className="w-full px-5 py-3 bg-[#20223b] border border-gray-800 rounded-2xl text-white 
+                                     placeholder-gray-600 focus:ring-1 focus:ring-primary2 focus:border-primary2 
+                                     outline-none transition-all pl-12"
+                            placeholder="you@zeusgym.com"
+                        />
+                        <MdEmail className="absolute left-4 top-1/2 -translate-y-1/2 text-primary3 text-xl" />
+                    </div>
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FF8E29] hover:bg-[#e67e22] rounded-lg shadow-lg flex items-center justify-center font-dmsans"
+                    className="w-full bg-primary2 hover:bg-[#e07a3d] text-white font-bold py-3 px-4 
+                             rounded-2xl shadow-lg shadow-primary2/20 transition-all duration-300 
+                             active:scale-[0.98] mb-6"
                 >
                     Send Reset Link
                 </button>
-            </form>
 
-            {/* Link Kembali */}
-            <div className="mt-6 text-center">
-                <Link to="/login" className="text-sm text-gray-400 hover:text-white transition-colors">
+                {/* Back to Login */}
+                <Link 
+                    to="/login" 
+                    className="flex items-center justify-center gap-2 text-primary3 hover:text-white 
+                             transition-colors text-sm font-semibold group"
+                >
+                    <MdArrowBack className="group-hover:-translate-x-1 transition-transform" />
                     Back to Login
                 </Link>
-            </div>
+            </form>
         </div>
     );
 }

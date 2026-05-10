@@ -1,69 +1,72 @@
-import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import { BsFillExclamationDiamondFill } from "react-icons/bs";
+import { ImSpinner2 } from "react-icons/im";
+import { MdEmail, MdLock, MdPersonAdd, MdLogin } from "react-icons/md";
 export default function Register() {
-    return (
-        <div className="w-full">
-            {/* Judul Halaman */}
-            <h2 className="text-3xl font-extrabold text-white tracking-wide text-center mb-8">
-                Create Account
+return (
+        <div className="font-dmsans">
+            <h2 className="text-2xl font-bold text-white mb-2 text-center">
+                Join the Tribe
             </h2>
+            <p className="text-center text-primary3 text-sm mb-4">Start your fitness journey with us</p>
 
-            {/* Form */}
-            <form>
-                <div className="mb-5">
-                    <label htmlFor="email" className="block mb-2 text-sm font-montserrat text-gray-300">
+            <form className="space-y-5">
+                <div>
+                    <label className="block mb-2 text-xs font-bold text-primary3 uppercase tracking-widest">
                         Email Address
                     </label>
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="Email address"
-                       className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
-                        required
-                    />
+                    <div className="relative">
+                        <input
+                            type="email"
+                            className="w-full px-5 py-3 bg-[#20223b] border border-gray-800 rounded-2xl text-white placeholder-gray-600 focus:ring-1 focus:ring-primary2 focus:border-primary2 outline-none transition-all pl-12"
+                            placeholder="you@example.com"
+                        />
+                        <MdEmail className="absolute left-4 top-1/2 -translate-y-1/2 text-primary3 text-xl" />
+                    </div>
                 </div>
 
-                <div className="mb-5">
-                    <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-300">
+                <div>
+                    <label className="block mb-2 text-xs font-bold text-primary3 uppercase tracking-widest">
                         Password
                     </label>
-                    <input
-                        type="password"
-                        id="password"
-                       className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
-                        placeholder="Password"
-                        required
-                    />
+                    <div className="relative">
+                        <input
+                            type="password"
+                            className="w-full px-5 py-3 bg-[#20223b] border border-gray-800 rounded-2xl text-white placeholder-gray-600 focus:ring-1 focus:ring-primary2 focus:border-primary2 outline-none transition-all pl-12"
+                            placeholder="********"
+                        />
+                        <MdLock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary3 text-xl" />
+                    </div>
                 </div>
 
-                <div className="mb-8">
-                    <label htmlFor="confirmPassword" className="block mb-2 text-sm font-medium text-gray-300">
+                <div>
+                    <label className="block mb-2 text-xs font-bold text-primary3 uppercase tracking-widest">
                         Confirm Password
                     </label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        className="w-full px-4 py-3 bg-white text-gray-900 rounded-lg shadow-inner outline-none focus:ring-2 focus:ring-[#FF8E29] transition-all placeholder-gray-400 font-dmsans"
-                        placeholder="Confirm Password"
-                        required
-                    />
+                    <div className="relative">
+                        <input
+                            type="password"
+                            className="w-full px-5 py-3 bg-[#20223b] border border-gray-800 rounded-2xl text-white placeholder-gray-600 focus:ring-1 focus:ring-primary2 focus:border-primary2 outline-none transition-all pl-12"
+                            placeholder="********"
+                        />
+                        <MdLock className="absolute left-4 top-1/2 -translate-y-1/2 text-primary3 text-xl" />
+                    </div>
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full px-4 py-3 font-bold text-white transition-colors duration-300 bg-[#FF8E29] hover:bg-[#e67e22] rounded-lg shadow-lg flex items-center justify-center font-dmsans"
+                    className="w-full flex justify-center items-center gap-2 bg-primary2 hover:bg-[#e07a3d] text-white font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-primary2/20 transition duration-300"
                 >
-                    Registers
+                    <MdPersonAdd className="text-xl" /> Register Account
                 </button>
             </form>
 
-            {/* Link Login */}
-            <div className="mt-6 text-center">
-                <span className="text-sm text-gray-400">Already have an account? </span>
-                <Link to="/login" className="text-sm text-[#FF8E29] hover:text-white transition-colors">
-                    Login here
-                </Link>
-            </div>
+            <p className="mt-2 text-center text-sm text-primary3">
+                Already a member?{" "}
+                <Link to="/login" className="text-primary2 font-bold hover:underline">Login Here</Link>
+            </p>
         </div>
     );
 }

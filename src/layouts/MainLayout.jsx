@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { Suspense, lazy } from 'react';
 import React from 'react';
 
 const Header = React.lazy(() => import("../components/Header"));
@@ -7,14 +6,15 @@ const Sidebar = React.lazy(() => import("../components/Sidebar"));
 
 export default function MainLayout() {
     return (
-        <div id="app-container" className="bg-gray-100 flex h-screen overflow-hidden font-dmsans">
-            <Suspense fallback={null}>
-                <Sidebar />
-                <div id="main-content" className="flex-1 p-4 h-full overflow-y-auto">
-                    <Header />
+        // Mengubah background ke dark navy
+        <div id="app-container" className="bg-[#151728] text-white flex h-screen overflow-hidden">
+            <Sidebar />
+            <div id="main-content" className="flex-1 flex flex-col h-full overflow-hidden">
+                <Header />
+                <div className="flex-1 overflow-y-auto p-6">
                     <Outlet />
                 </div>
-            </Suspense>
+            </div>
         </div>
     );
 }

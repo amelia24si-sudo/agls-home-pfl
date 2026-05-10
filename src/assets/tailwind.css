@@ -1,19 +1,11 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: 'Impact';
-    src: url('./fonts/Impact.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    src: url('./fonts/Montserrat-Regular.ttf') format('truetype');
+    font-family: 'DMSans';
+    src: url('./fonts/DM_Sans-Regular.ttf') format('truetype');
 }
 
 @theme {
-    /* Fonts */
-    --font-impact: 'Impact', sans-serif;
-    --font-montserrat: 'Montserrat', sans-serif;
     --font-dmsans: 'DM Sans', sans-serif;
 
     /* Zeus Gym Brand Colors */
