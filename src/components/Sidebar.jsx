@@ -35,9 +35,9 @@ export default function Sidebar() {
                     <MdPayment className="text-2xl" />
                     <span>Payment</span>
                 </NavLink>
-                <NavLink to="/promo" className={navLinkStyles}>
+                <NavLink to="/promos" className={navLinkStyles}>
                     <MdCardMembership className="text-2xl" />
-                    <span>Promo</span>
+                    <span>Promos</span>
                 </NavLink>
                 <NavLink to="/feedback" className={navLinkStyles}>
                     <MdOutlineFeedback className="text-2xl" />
