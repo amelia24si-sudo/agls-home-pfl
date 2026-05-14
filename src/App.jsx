@@ -7,6 +7,7 @@ import React from 'react';
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
 import Loading from './components/Loading';
+import PromoDetail from './pages/PromoDetail';
 
 // Main Pages
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
@@ -36,6 +37,7 @@ export default function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/promo" element={<Promo />} />
+          <Route path="/promo/:id" element={<PromoDetail />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/members" element={<Members />} />

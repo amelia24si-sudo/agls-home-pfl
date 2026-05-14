@@ -1,0 +1,137 @@
+[
+    {
+        "id": "1",
+        "title": "New Member Deal",
+        "desc": "Special 50% off for the first month for all new gym members.",
+        "participants": 45,
+        "date": "01.06.26",
+        "status": "Active",
+        "fullDesc": "Detailed terms for new members..."
+    },
+    {
+        "id": "2",
+        "title": "Referral Bonus",
+        "desc": "Bring a friend and both get 20% discount on next month.",
+        "participants": 12,
+        "date": "15.06.26",
+        "status": "Active",
+        "fullDesc": "Referral program details..."
+    },
+    {
+        "id": "3",
+        "title": "Yearly Subscription",
+        "desc": "Commit to a year and save $200 on total membership fees.",
+        "participants": 89,
+        "date": "20.07.26",
+        "status": "Active",
+        "fullDesc": "Annual commitment benefits..."
+    },
+    {
+        "id": "4",
+        "title": "Student Discount",
+        "desc": "Valid ID required for 30% off on all monthly plans.",
+        "participants": 150,
+        "date": "10.08.26",
+        "status": "Active",
+        "fullDesc": "Student eligibility criteria..."
+    },
+    {
+        "id": "5",
+        "title": "Summer Body Pack",
+        "desc": "3 months of intensive training with a personal coach.",
+        "participants": 34,
+        "date": "30.06.26",
+        "status": "Active",
+        "fullDesc": "Summer program details..."
+    },
+    {
+        "id": "6",
+        "title": "Corporate Fit",
+        "desc": "Special rates for companies with more than 10 employees.",
+        "participants": 210,
+        "date": "12.12.26",
+        "status": "Active",
+        "fullDesc": "B2B partnership terms..."
+    },
+    {
+        "id": "7",
+        "title": "Weekend Warrior",
+        "desc": "Access only on Sat-Sun with a very low flat rate.",
+        "participants": 56,
+        "date": "05.09.26",
+        "status": "Active",
+        "fullDesc": "Weekend only access terms..."
+    },
+    {
+        "id": "8",
+        "title": "Morning Bird",
+        "desc": "Access from 5 AM to 10 AM at discounted rates.",
+        "participants": 42,
+        "date": "15.09.26",
+        "status": "Active",
+        "fullDesc": "Morning workout benefits..."
+    },
+    {
+        "id": "9",
+        "title": "Yoga Zen Promo",
+        "desc": "Free yoga mat for every new 6-month yoga subscription.",
+        "participants": 28,
+        "date": "22.06.26",
+        "status": "Active",
+        "fullDesc": "Yoga package details..."
+    },
+    {
+        "id": "10",
+        "title": "PT Starter Kit",
+        "desc": "Buy 5 PT sessions, get 2 for free.",
+        "participants": 67,
+        "date": "11.07.26",
+        "status": "Active",
+        "fullDesc": "Personal training offers..."
+    },
+    {
+        "id": "11",
+        "title": "Ramadan Kareem",
+        "desc": "Special hours and discounts during the holy month.",
+        "participants": 120,
+        "date": "08.04.26",
+        "status": "Expired",
+        "fullDesc": "Holiday special details..."
+    },
+    {
+        "id": "12",
+        "title": "New Year Burn",
+        "desc": "Resolution pack for the first 100 people.",
+        "participants": 350,
+        "date": "01.01.26",
+        "status": "Expired",
+        "fullDesc": "New year resolution terms..."
+    },
+    {
+        "id": "13",
+        "title": "Black Friday",
+        "desc": "70% off for all merchandise and supplements.",
+        "participants": 95,
+        "date": "28.11.25",
+        "status": "Expired",
+        "fullDesc": "Black friday sales..."
+    },
+    {
+        "id": "14",
+        "title": "Summer Fit",
+        "desc": "Get fit for the beach season.",
+        "participants": 210,
+        "date": "15.08.25",
+        "status": "Expired",
+        "fullDesc": "Old summer promo..."
+    },
+    {
+        "id": "15",
+        "title": "Valentine Duo",
+        "desc": "Couple membership for the price of one.",
+        "participants": 40,
+        "date": "14.02.26",
+        "status": "Expired",
+        "fullDesc": "Couples deal details..."
+    }
+]
