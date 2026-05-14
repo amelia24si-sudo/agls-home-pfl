@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import promoData from "../assets/promos.json";
 
-export default function Promo() {
+export default function Promos() {
     const activePromos = promoData.filter(p => p.status === "Active");
     const expiredPromos = promoData.filter(p => p.status === "Expired");
 

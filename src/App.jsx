@@ -12,7 +12,7 @@ import PromoDetail from './pages/PromoDetail';
 // Main Pages
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Payment = React.lazy(() => import("./pages/Payment"));
-const Promo = React.lazy(() => import("./pages/Promo"));
+const Promo = React.lazy(() => import("./pages/Promos"));
 const Feedback = React.lazy(() => import("./pages/Feedback"));
 const Attendance = React.lazy(() => import("./pages/Attendance"));
 const Members = React.lazy(() => import("./pages/Member"));
@@ -36,7 +36,7 @@ export default function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/payment" element={<Payment />} />
-          <Route path="/promo" element={<Promo />} />
+          <Route path="/promos" element={<Promos />} />
           <Route path="/promo/:id" element={<PromoDetail />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/attendance" element={<Attendance />} />
