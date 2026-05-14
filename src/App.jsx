@@ -8,6 +8,7 @@ import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
 import Loading from './components/Loading';
 import PromoDetail from './pages/PromoDetail';
+import Promos from './pages/Promos';
 
 // Main Pages
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
