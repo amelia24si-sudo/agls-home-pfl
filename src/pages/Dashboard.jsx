@@ -1,4 +1,7 @@
 import { MdTrendingUp, MdLocalOffer, MdPeople, MdAccountBalanceWallet } from "react-icons/md";
+import PromoItem from "../components/PromoItem";
+import MemberRow from "../components/MemberRow";
+import { StatCard } from "../components/StatCard";
 
 export default function Dashboard() {
     return (
@@ -114,67 +117,6 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
-        </div>
-    );
-}
-
-// --- SUB COMPONENTS ---
-
-function StatCard({ label, amount, growth, icon, iconBg }) {
-    return (
-        <div className="bg-[#20223b] p-6 rounded-[28px] border border-gray-800 flex items-center justify-between shadow-lg">
-            <div className="flex items-center gap-4">
-                <div className={`${iconBg} p-4 rounded-2xl shadow-inner`}>
-                    {icon}
-                </div>
-                <div>
-                    <p className="text-gray-500 text-sm font-medium">{label}</p>
-                    <h4 className="text-white text-2xl font-bold">{amount}</h4>
-                </div>
-            </div>
-            <div className="flex items-center text-xs font-bold text-[#FF8A48] bg-[#FF8A48]/10 px-2 py-1 rounded-lg">
-                <MdTrendingUp className="mr-1" /> {growth}
-            </div>
-        </div>
-    );
-}
-
-function MemberRow({ name, email, status }) {
-    return (
-        <tr className="group hover:bg-white/5 transition-colors">
-            <td className="py-4">
-                <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-700 border border-gray-600"></div>
-                    <div>
-                        <p className="text-white font-bold text-sm leading-none mb-1">{name}</p>
-                        <p className="text-gray-500 text-[10px]">{email}</p>
-                    </div>
-                </div>
-            </td>
-            <td className="text-right">
-                <span className={`text-[10px] font-black uppercase px-2 py-1 rounded ${status === 'Active' ? 'text-green-400 bg-green-400/10' : 'text-yellow-400 bg-yellow-400/10'}`}>
-                    {status}
-                </span>
-            </td>
-        </tr>
-    );
-}
-
-function PromoItem({ title, usage, trend, iconBg, iconColor }) {
-    return (
-        <div className="flex items-center justify-between group">
-            <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 ${iconBg} rounded-xl flex items-center justify-center ${iconColor}`}>
-                    <MdLocalOffer size={18} />
-                </div>
-                <div>
-                    <p className="text-white font-bold text-sm leading-none mb-1 group-hover:text-[#FF8A48] transition-colors">{title}</p>
-                    <p className="text-gray-500 text-[10px] font-medium uppercase tracking-tighter">{usage}</p>
-                </div>
-            </div>
-            <span className={`text-xs font-bold ${trend.startsWith('+') ? 'text-green-400' : 'text-red-400'}`}>
-                {trend}
-            </span>
         </div>
     );
 }
