@@ -13,7 +13,7 @@ export default function PromoDetail() {
         <div className="p-4 md:p-8 font-dmsans max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Header / Navigation */}
             <div className="flex items-center justify-between mb-10">
-                <button onClick={() => navigate('/promo')} className="flex items-center gap-3 text-gray-400 hover:text-white transition-all group">
+                <button onClick={() => navigate('/promos')} className="flex items-center gap-3 text-gray-400 hover:text-white transition-all group">
                     <div className="p-2 bg-gray-800 rounded-xl group-hover:bg-[#FF8A48] transition-colors text-white">
                         <FaArrowLeft size={16} />
                     </div>
