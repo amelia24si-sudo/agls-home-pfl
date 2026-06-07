@@ -1,8 +1,42 @@
 import { MdPeople, MdTrendingUp } from "react-icons/md";
 import { StatCard } from "../components/StatCard";
 import AttendanceRow from "../components/AttendanceRow";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
 
 export default function Attendance() {
+    // Array data absensi member beserta URL avatar asli dari Unsplash
+    const attendanceData = [
+        { 
+            name: "Aiden Max", 
+            time: "08:45 AM", 
+            status: "Active", 
+            activity: "Weight Training",
+            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80" 
+        },
+        { 
+            name: "Sophia Jane", 
+            time: "09:12 AM", 
+            status: "Active", 
+            activity: "Cardio",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80" 
+        },
+        { 
+            name: "Marcus Go", 
+            time: "10:05 AM", 
+            status: "Done", 
+            activity: "Yoga Class",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80" 
+        }
+    ];
+
     return (
         <div className="space-y-8 p-2">
             {/* Header section dengan Profile Style */}
@@ -21,7 +55,7 @@ export default function Attendance() {
                 <StatCard label="Total Monthly" value="35k" growth="+ 2%" color="bg-purple-500/20" iconColor="text-purple-400" />
             </div>
 
-            {/* Main Content - Tabel Attendance mengikuti gaya "Sale by country" */}
+            {/* Main Content - Tabel Attendance */}
             <div className="bg-[#20223b] rounded-3xl p-8 border border-gray-800 shadow-xl">
                 <div className="flex justify-between items-center mb-8">
                     <h3 className="text-white font-bold text-xl">Daily Check-in List</h3>
@@ -39,15 +73,54 @@ export default function Attendance() {
                             </tr>
                         </thead>
                         <tbody className="text-gray-300">
-                            {/* Baris Tabel mengikuti gaya desain List di Image 1 */}
-                            <AttendanceRow name="Aiden Max" time="08:45 AM" status="Active" activity="Weight Training" />
-                            <AttendanceRow name="Sophia Jane" time="09:12 AM" status="Active" activity="Cardio" />
-                            <AttendanceRow name="Marcus Go" time="10:05 AM" status="Done" activity="Yoga Class" />
+                            {/* Render Baris Tabel Menggunakan Looping Map */}
+                            {attendanceData.map((item, index) => (
+                                <AttendanceRow 
+                                    key={index}
+                                    name={item.name} 
+                                    time={item.time} 
+                                    status={item.status} 
+                                    activity={item.activity} 
+                                    avatar={item.avatar}
+                                />
+                            ))}
                         </tbody>
                     </table>
+                </div>
+                
+                {/* Bagian Pagination Shadcn UI */}
+                <div className="pt-4 border-t border-gray-800/60">
+                    <Pagination>
+                        <PaginationContent className="text-gray-400">
+                            <PaginationItem>
+                                <PaginationPrevious href="#" className="hover:bg-gray-800 hover:text-white text-gray-400" />
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <PaginationLink href="#" className="hover:bg-gray-800 hover:text-white text-gray-400">1</PaginationLink>
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <PaginationLink href="#" isActive className="bg-[#FF8A48] hover:bg-[#FF8A48]/90 text-white border-none">
+                                    2
+                                </PaginationLink>
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <PaginationLink href="#" className="hover:bg-gray-800 hover:text-white text-gray-400">3</PaginationLink>
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <PaginationEllipsis className="text-gray-500" />
+                            </PaginationItem>
+
+                            <PaginationItem>
+                                <PaginationNext href="#" className="hover:bg-gray-800 hover:text-white text-gray-400" />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
                 </div>
             </div>
         </div>
     );
 }
-

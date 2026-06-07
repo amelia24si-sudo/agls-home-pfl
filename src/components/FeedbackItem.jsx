@@ -1,20 +1,24 @@
 import { MdStar } from "react-icons/md";
+// Import komponen Avatar Shadcn UI yang sudah Anda buat
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; 
 
 export function FeedbackItem({ name, date, rating, message, avatar }) {
     return (
         <div className="group p-4 rounded-2xl hover:bg-white/5 transition-all duration-300 border-b border-gray-800 last:border-0">
             <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center gap-3">
-                    {/* Avatar Placeholder */}
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-gray-700 to-gray-600 border border-gray-600 overflow-hidden">
+                    
+                    {/* --- IMPLEMENTASI AVATAR SHADCN UI --- */}
+                    <Avatar size="lg" className="border border-gray-700 bg-gradient-to-tr from-gray-700 to-gray-600">
                         {avatar ? (
-                            <img src={avatar} alt={name} className="w-full h-full object-cover" />
-                        ) : (
-                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-gray-400">
-                                {name.charAt(0)}
-                            </div>
-                        )}
-                    </div>
+                            <AvatarImage src={avatar} alt={name} />
+                        ) : null}
+                        <AvatarFallback className="text-xs font-bold text-gray-400 bg-transparent flex items-center justify-center size-full">
+                            {name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                    </Avatar>
+                    {/* ------------------------------------- */}
+
                     <div>
                         <h4 className="font-bold text-sm text-white group-hover:text-[#FF8A48] transition-colors">
                             {name}

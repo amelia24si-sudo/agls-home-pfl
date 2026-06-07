@@ -1,10 +1,22 @@
-// Komponen Baris Tabel gaya "Sale by country"
-export default function AttendanceRow({ name, time, status, activity }) {
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+export default function AttendanceRow({ name, time, status, activity, avatar }) {
     return (
         <tr className="group hover:bg-white/5 transition-colors">
             <td className="py-4 px-4 bg-[#1c1e33]/50 rounded-l-2xl border-y border-l border-gray-800/50">
                 <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-full bg-gray-700"></div>
+                    
+                    {/* --- IMPLEMENTASI AVATAR SHADCN UI --- */}
+                    <Avatar size="sm" className="border border-gray-700 bg-gray-700">
+                        {avatar ? (
+                            <AvatarImage src={avatar} alt={name} />
+                        ) : null}
+                        <AvatarFallback className="text-xs font-bold text-gray-400 bg-transparent flex items-center justify-center size-full">
+                            {name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                    </Avatar>
+                    {/* ------------------------------------- */}
+                    
                     <span className="font-semibold text-white">{name}</span>
                 </div>
             </td>

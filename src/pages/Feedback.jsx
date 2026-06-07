@@ -1,31 +1,34 @@
 import { MdStar } from "react-icons/md";
 import { CardContainer } from "../components/CardContainer";
 import { PerformanceWidget } from "../components/PerformanceWidget";
-import { FeedbackItem } from "../components/FeedbackItem"; // Import komponen baru
+import { FeedbackItem } from "../components/FeedbackItem"; 
 
 export default function Feedback() {
-    // Data dummy untuk feedback
+    // Data dummy untuk feedback dengan URL foto avatar asli dari Unsplash
     const feedbacks = [
         {
             id: 1,
             name: "Aiden Max",
             date: "2 Hours Ago",
             rating: 5,
-            message: "Fasilitas gym sangat lengkap dan instruktur yoga-nya sangat sabar mengajar pemula seperti saya. Sangat direkomendasikan!"
+            message: "Fasilitas gym sangat lengkap dan instruktur yoga-nya sangat sabar mengajar pemula seperti saya. Sangat direkomendasikan!",
+            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80" // Foto Laki-laki (Aiden)
         },
         {
             id: 2,
             name: "Roselle Ehrman",
             date: "Yesterday",
             rating: 4,
-            message: "Tempatnya bersih dan nyaman. Hanya saja musik di area cardio terkadang terlalu keras, tapi secara keseluruhan luar biasa."
+            message: "Tempatnya bersih dan nyaman. Hanya saja musik di area cardio terkadang terlalu keras, tapi secara keseluruhan luar biasa.",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80" // Foto Perempuan (Roselle)
         },
         {
             id: 3,
             name: "Marcus Go",
             date: "2 Days Ago",
             rating: 5,
-            message: "Aplikasi booking kelasnya sangat membantu. Tidak perlu antre lagi dan jadwalnya selalu update."
+            message: "Aplikasi booking kelasnya sangat membantu. Tidak perlu antre lagi dan jadwalnya selalu update.",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80" // Foto Laki-laki (Marcus)
         }
     ];
 
@@ -45,7 +48,7 @@ export default function Feedback() {
                         </div>
                     </div>
 
-                    {/* Render Feedback Items */}
+                    {/* Container Loop List Feedback */}
                     <div className="space-y-2 overflow-y-auto pr-2 custom-scrollbar">
                         {feedbacks.map((item) => (
                             <FeedbackItem 
@@ -54,6 +57,7 @@ export default function Feedback() {
                                 date={item.date}
                                 rating={item.rating}
                                 message={item.message}
+                                avatar={item.avatar}
                             />
                         ))}
                     </div>
