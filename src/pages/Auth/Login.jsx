@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react"; // 1. Import useEffect dan useRef
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
-import { MdEmail, MdLock, MdPersonAdd, MdLogin } from "react-icons/md";
+import { MdEmail, MdLock, MdLogin } from "react-icons/md";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -13,6 +13,17 @@ export default function Login() {
         email: "",
         password: "",
     });
+
+    // 2. Buat referensi untuk elemen input email
+    const emailInputRef = useRef(null);
+
+    // 3. Terapkan useEffect dengan dependency array kosong []
+    // Fungsi ini akan berjalan tepat setelah komponen pertama kali muncul (mounted)
+    useEffect(() => {
+        if (emailInputRef.current) {
+            emailInputRef.current.focus();
+        }
+    }, []); 
 
     const handleChange = (evt) => {
         const { name, value } = evt.target;
@@ -60,6 +71,7 @@ export default function Login() {
                     </label>
                     <div className="relative">
                         <input
+                            ref={emailInputRef} // 4. Pasang ref di sini
                             type="text"
                             name="email"
                             onChange={handleChange}
