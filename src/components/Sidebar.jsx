@@ -3,6 +3,10 @@ import { FaDumbbell } from "react-icons/fa";
 import { MdSpaceDashboard, MdPayment, MdCardMembership, MdOutlineFeedback, MdCalendarToday, MdPeopleAlt } from "react-icons/md";
 
 export default function Sidebar() {
+    // 1. Ambil data user yang sedang login dari localStorage
+    const userLoggedIn = JSON.parse(localStorage.getItem("userLoggedIn")) || {};
+    const userRole = userLoggedIn.role?.toLowerCase(); // Ambil role (misal: "admin" atau "super admin")
+
     const navLinkStyles = ({ isActive }) =>
         `flex items-center space-x-4 px-6 py-4 rounded-xl transition-all duration-200 font-semibold text-lg font-dmsans ${
             isActive
@@ -22,7 +26,10 @@ export default function Sidebar() {
                         <span className="text-primary2">GYM</span>
                     </div>
                 </div>
-                <span className="text-primary3 text-xs tracking-[0.8em] mt-2 uppercase font-light opacity-50">Admin Panel</span>
+                {/* Menampilkan sub-text sesuai role yang sedang login */}
+                <span className="text-primary3 text-xs tracking-[0.4em] mt-2 uppercase font-light opacity-60">
+                    {userRole === "super admin" ? "Super Admin Panel" : "Admin Panel"}
+                </span>
             </div>
 
             {/* Menu Section */}
@@ -51,6 +58,14 @@ export default function Sidebar() {
                     <MdPeopleAlt className="text-2xl" />
                     <span>Members</span>
                 </NavLink>
+                
+                {/* 2. KONDISI KHUSUS: Menu Users hanya di-render jika role-nya "super admin" */}
+                {userRole === "super admin" && (
+                    <NavLink to="/users" className={navLinkStyles}>
+                        <MdPeopleAlt className="text-2xl" />
+                        <span>Users</span>
+                    </NavLink>
+                )}
             </nav>
 
             <div className="mt-auto px-10 pb-4">

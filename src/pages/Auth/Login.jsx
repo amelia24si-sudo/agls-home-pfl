@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react"; // 1. Import useEffect dan useRef
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { ImSpinner2 } from "react-icons/im";
 import { MdEmail, MdLock, MdLogin } from "react-icons/md";
+import { memberAPI } from "../../service/memberAPI";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -14,16 +14,13 @@ export default function Login() {
         password: "",
     });
 
-    // 2. Buat referensi untuk elemen input email
     const emailInputRef = useRef(null);
 
-    // 3. Terapkan useEffect dengan dependency array kosong []
-    // Fungsi ini akan berjalan tepat setelah komponen pertama kali muncul (mounted)
     useEffect(() => {
         if (emailInputRef.current) {
             emailInputRef.current.focus();
         }
-    }, []); 
+    }, []);
 
     const handleChange = (evt) => {
         const { name, value } = evt.target;
@@ -35,18 +32,34 @@ export default function Login() {
         setLoading(true);
         setError("");
 
-        axios
-            .post("https://dummyjson.com/user/login", {
-                username: dataForm.email,
-                password: dataForm.password,
-            })
-            .then((response) => {
-                navigate("/");
-            })
-            .catch((err) => {
-                setError(err.response?.data?.message || "Invalid credentials");
-            })
-            .finally(() => setLoading(false));
+        try {
+            // 1. Ambil data member dari Supabase
+            const members = await memberAPI.fetchMembers();
+
+            // 2. Cocokkan input form dengan struktur tabel Supabase Anda
+            // Perhatikan: Menggunakan member.email_address sesuai dengan skema SQL Anda
+            const userValid = members.find(
+                (member) =>
+                    member.email_address?.trim().toLowerCase() === dataForm.email?.trim().toLowerCase() &&
+                    member.password?.trim() === dataForm.password?.trim()
+            );
+
+            if (userValid) {
+                // Simpan data login ke localStorage agar bisa diakses di halaman lain
+                localStorage.setItem("userLoggedIn", JSON.stringify(userValid));
+
+                // Opsional: Cek role jika Anda ingin membedakan halaman redirect
+                if (userValid.role === "admin" || userValid.role === "super admin") {
+                    navigate("/"); // Jika ada dashboard khusus admin
+                }
+            } else {
+                setError("Email atau Password salah!");
+            }
+        } catch (err) {
+            setError(err.response?.data?.message || "Gagal terhubung ke server.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -71,12 +84,12 @@ export default function Login() {
                     </label>
                     <div className="relative">
                         <input
-                            ref={emailInputRef} // 4. Pasang ref di sini
+                            ref={emailInputRef}
                             type="text"
                             name="email"
                             onChange={handleChange}
                             className="w-full px-5 py-3 bg-[#20223b] border border-gray-800 rounded-2xl text-white placeholder-gray-600 focus:ring-1 focus:ring-primary2 focus:border-primary2 outline-none transition-all pl-12"
-                            placeholder="emilys"
+                            placeholder="nama@email.com"
                             required
                         />
                         <MdEmail className="absolute left-4 top-1/2 -translate-y-1/2 text-primary3 text-xl" />
@@ -106,7 +119,7 @@ export default function Login() {
                     disabled={loading}
                     className="w-full flex justify-center items-center gap-2 px-4 py-3.5 font-bold text-white transition duration-300 bg-primary2 hover:bg-[#e07a3d] rounded-2xl shadow-lg shadow-primary2/20 disabled:opacity-70"
                 >
-                    {loading ? <ImSpinner2 className="animate-spin text-xl" /> : <><MdLogin className="text-xl"/> Login</>}
+                    {loading ? <ImSpinner2 className="animate-spin text-xl" /> : <><MdLogin className="text-xl" /> Login</>}
                 </button>
             </form>
 

@@ -14,16 +14,14 @@ import { CardContainer } from "../components/CardContainer";
 import { Badge } from "../components/Badge";
 import { memberAPI } from "../service/memberAPI";
 
-export default function Member() {
+export default function User() {
     const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [selectedMember, setSelectedMember] = useState(null); // Detail Modal
-    const [editMember, setEditMember] = useState(null); // Edit Modal
-    
-    // 1. State baru untuk menampung data Modal Tambah Member
+    const [selectedMember, setSelectedMember] = useState(null); 
+    const [editMember, setEditMember] = useState(null); 
     const [addMember, setAddMember] = useState(null); 
 
-    // Ambil Data dari API Supabase
+    // Ambil Semua Data Member dari API Supabase
     const getMembersData = async () => {
         try {
             setLoading(true);
@@ -41,49 +39,80 @@ export default function Member() {
         getMembersData();
     }, []);
 
-    // 2. Filter data agar HANYA menampilkan user dengan role "member"
-    const filteredMembers = members.filter(m => m.role?.toLowerCase() === "member");
+    // Memfilter data tabel 'member' agar hanya menampilkan baris ber-role admin/super admin
+    const filteredMembers = members.filter(m => 
+        m.role?.toLowerCase() === "admin" || m.role?.toLowerCase() === "super admin"
+    );
 
-    // Fungsi Tambah Member Baru (CREATE)
+    // 🔥 FIX 1: Fungsi Tambah Admin Baru dengan Pembersihan Payload (CREATE)
     const handleAddSubmit = async (e) => {
         e.preventDefault();
         try {
-            await memberAPI.createMember(addMember);
-            alert("Member baru berhasil ditambahkan!");
-            setAddMember(null); // Tutup modal tambah
-            getMembersData(); // Refresh list tabel
+            const cleanedPayload = {};
+            Object.keys(addMember).forEach((key) => {
+                const value = addMember[key];
+                
+                // Tangani kolom numerik transaksi
+                if (key === "frekuensi_transaksi" || key === "total_nominal_transaksi") {
+                    cleanedPayload[key] = value === "" || value === null ? 0 : Number(value);
+                } 
+                // Ubah semua string kosong "" menjadi null agar PostgreSQL menerima datanya
+                else {
+                    cleanedPayload[key] = value === "" ? null : value;
+                }
+            });
+
+            await memberAPI.createMember(cleanedPayload);
+            alert("Admin baru berhasil ditambahkan!");
+            setAddMember(null); 
+            getMembersData(); 
         } catch (err) {
-            console.error("Gagal menambah member:", err);
-            alert("Gagal menambahkan data ke Supabase.");
+            console.error("Gagal menambah admin:", err);
+            const errorDetail = err.response?.data?.message || err.message || "Unknown Error";
+            alert(`Gagal menambahkan data ke Supabase!\n\nDetail Error: ${errorDetail}`);
         }
     };
 
-    // Fungsi Hapus Member (DELETE)
+    // Fungsi Hapus Admin (DELETE)
     const handleDelete = async (id_member, nama) => {
-        if (window.confirm(`Apakah Anda yakin ingin menghapus member "${nama}" (${id_member})?`)) {
+        if (window.confirm(`Apakah Anda yakin ingin menghapus akun "${nama}" (${id_member})?`)) {
             try {
                 await memberAPI.deleteMember(id_member);
-                alert("Member berhasil dihapus!");
+                alert("Akun berhasil dihapus!");
                 getMembersData();
             } catch (err) {
-                console.error("Gagal menghapus member:", err);
+                console.error("Gagal menghapus akun:", err);
                 alert("Gagal menghapus data dari Supabase.");
             }
         }
     };
 
-    // Fungsi Simpan Perubahan (UPDATE/PATCH)
+    // 🔥 FIX 2: Fungsi Simpan Perubahan dengan Pembersihan Payload (UPDATE/PATCH)
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { id_member, ...updatePayload } = editMember;
-            await memberAPI.updateMember(id_member, updatePayload);
-            alert("Data member berhasil diperbarui!");
+            // Pisahkan metadata bawaan supabase agar tidak merusak query patch
+            const { id_member, created_at, updated_at, ...updatePayload } = editMember;
+            
+            const cleanedPayload = {};
+            Object.keys(updatePayload).forEach((key) => {
+                const value = updatePayload[key];
+                
+                if (key === "frekuensi_transaksi" || key === "total_nominal_transaksi") {
+                    cleanedPayload[key] = value === "" || value === null ? 0 : Number(value);
+                } else {
+                    cleanedPayload[key] = value === "" ? null : value;
+                }
+            });
+
+            await memberAPI.updateMember(id_member, cleanedPayload);
+            alert("Data akun berhasil diperbarui!");
             setEditMember(null);
             getMembersData();
         } catch (err) {
-            console.error("Gagal memperbarui data member:", err);
-            alert("Gagal menyimpan perubahan ke Supabase.");
+            console.error("Gagal memperbarui data:", err);
+            const errorDetail = err.response?.data?.message || err.message || "Unknown Error";
+            alert(`Gagal menyimpan perubahan ke Supabase!\n\nDetail Error: ${errorDetail}`);
         }
     };
 
@@ -93,10 +122,10 @@ export default function Member() {
         setTargetState({ ...target, pin_akses: randomPin });
     };
 
-    // Kalkulasi Statistik Otomatis khusus dari data yang sudah ter-filter ("member")
-    const totalMembers = filteredMembers.length;
-    const activeMembers = filteredMembers.filter(m => m.status_member === "Aktif").length;
-    const totalTransactions = filteredMembers.reduce((sum, m) => sum + (Number(m.frekuensi_transaksi) || 0), 0);
+    // Kalkulasi Statistik Otomatis Berdasarkan Data Terfilter (Hanya Admin)
+    const totalStaff = filteredMembers.length;
+    const activeStaff = filteredMembers.filter(m => m.status_member === "Aktif").length;
+    const superAdminCount = filteredMembers.filter(m => m.role?.toLowerCase() === "super admin").length;
 
     if (loading) {
         return (
@@ -111,60 +140,59 @@ export default function Member() {
         <div className="space-y-8 p-2 font-dmsans">
             {/* Top Bar Header */}
             <div className="flex justify-between items-center">
-                <h2 className="text-3xl font-bold text-white tracking-tight">Member Directory</h2>
-                {/* 3. Pasang aksi onClick untuk memicu inisialisasi Modal Tambah */}
+                <h2 className="text-3xl font-bold text-white tracking-tight">Admin Management</h2>
                 <PrimaryButton 
                     icon={<MdPersonAdd />} 
+                    // 🔥 FIX 3: Ganti nilai inisialisasi string kosong mjd null jika opsional
                     onClick={() => setAddMember({
-                        id_member: `M-${Math.floor(1000 + Math.random() * 9000)}`,
+                        id_member: `A-${Math.floor(1000 + Math.random() * 9000)}`,
                         nama_lengkap: "",
                         email_address: "",
-                        password: "Password123", // Default password awal jika diisi admin
+                        password: "Password123", 
                         jenis_kelamin: "",
                         tgl_lahir: "",
                         no_hp: "",
                         alamat: "",
                         tgl_gabung: new Date().toISOString().split("T")[0],
-                        tgl_berakhir: "",
+                        tgl_berakhir: null,
                         status_member: "Aktif",
-                        pin_akses: Math.floor(100000 + Math.random() * 900000).toString(), // Auto PIN di awal
-                        catatan_medis: "",
+                        pin_akses: Math.floor(100000 + Math.random() * 900000).toString(), 
+                        catatan_medis: null,
                         nama_kontak_darurat: "",
                         kontak_darurat: "",
                         frekuensi_transaksi: 0,
                         total_nominal_transaksi: 0,
-                        role: "member" // Dipaksa bertipe "member"
+                        role: "admin"
                     })}
                 >
-                    Add Member
+                    Add Staff
                 </PrimaryButton>
             </div>
 
             {/* Live Statistics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <StatCard label="Total Members" amount={totalMembers.toString()} percentage="Live" icon={<MdPeople />} iconBg="bg-[#FF8A48]/20" />
-                <StatCard label="Active Status" amount={activeMembers.toString()} percentage="Members" icon={<MdPeople />} iconBg="bg-cyan-500/20" />
-                <StatCard label="Total Transactions" amount={totalTransactions.toString()} percentage="Times" icon={<MdPeople />} iconBg="bg-purple-500/20" />
+                <StatCard label="Total Staff/Admin" amount={totalStaff.toString()} percentage="Live" icon={<MdPeople />} iconBg="bg-amber-500/20" />
+                <StatCard label="Active Status" amount={activeStaff.toString()} percentage="Accounts" icon={<MdPeople />} iconBg="bg-cyan-500/20" />
+                <StatCard label="Super Admin" amount={superAdminCount.toString()} percentage="Root" icon={<MdPeople />} iconBg="bg-red-500/20" />
             </div>
 
-            {/* Main Member Records Table Container */}
+            {/* Main Records Table Container */}
             <CardContainer className="p-8">
-                <h3 className="text-white font-bold text-xl mb-6">Member Records</h3>
+                <h3 className="text-white font-bold text-xl mb-6">Staff & Administrator Directory</h3>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left whitespace-nowrap">
                         <thead>
                             <tr className="text-gray-500 text-xs uppercase tracking-widest border-b border-gray-800">
                                 <th className="pb-4 font-semibold">ID & Name</th>
+                                <th className="pb-4 font-semibold">Role Authority</th>
                                 <th className="pb-4 font-semibold">Contact & Email</th>
-                                <th className="pb-4 font-semibold">Membership Period</th>
+                                <th className="pb-4 font-semibold">Join Date</th>
                                 <th className="pb-4 font-semibold">Status</th>
                                 <th className="pb-4 font-semibold">PIN Access</th>
-                                <th className="pb-4 font-semibold text-right">Transactions</th>
                                 <th className="pb-4 font-semibold text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-800/50">
-                            {/* 4. Menggunakan filteredMembers alih-alih members mentah */}
                             {filteredMembers.map((member) => (
                                 <tr key={member.id_member} className="group hover:bg-white/5 transition-colors">
                                     <td className="py-5">
@@ -174,12 +202,20 @@ export default function Member() {
                                         </div>
                                     </td>
                                     <td className="text-sm">
+                                        <span className={`px-2 py-1 rounded-md text-xs font-bold uppercase ${
+                                            member.role?.toLowerCase() === 'super admin' 
+                                                ? 'bg-red-500/20 text-red-400 border border-red-500/30' 
+                                                : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                                        }`}>
+                                            {member.role || "Admin"}
+                                        </span>
+                                    </td>
+                                    <td className="text-sm">
                                         <div className="text-gray-300">{member.no_hp || "-"}</div>
                                         <div className="text-xs text-gray-500">{member.email_address || "-"}</div>
                                     </td>
-                                    <td className="text-sm">
-                                        <div className="text-gray-400 text-xs">Start: {member.tgl_gabung || "-"}</div>
-                                        <div className="text-red-400 text-xs">End: {member.tgl_berakhir || "-"}</div>
+                                    <td className="text-sm text-gray-400">
+                                        {member.tgl_gabung || "-"}
                                     </td>
                                     <td>
                                         <Badge label={member.status_member || "Tidak Aktif"} type={member.status_member === "Aktif" ? "Active" : "Inactive"} />
@@ -187,21 +223,15 @@ export default function Member() {
                                     <td className="text-gray-400 font-mono text-sm tracking-widest">
                                         {member.pin_akses || "------"}
                                     </td>
-                                    <td className="text-right text-sm">
-                                        <div className="text-white font-semibold">{member.frekuensi_transaksi || 0}x</div>
-                                        <div className="text-xs text-green-400">
-                                            Rp {Number(member.total_nominal_transaksi || 0).toLocaleString("id-ID")}
-                                        </div>
-                                    </td>
                                     <td className="text-center">
                                         <div className="flex justify-center gap-2">
                                             <button onClick={() => setSelectedMember(member)} className="p-2 text-blue-400 hover:text-white bg-blue-500/10 hover:bg-blue-500 rounded-xl transition-all" title="View Details">
                                                 <MdInfo />
                                             </button>
-                                            <button onClick={() => setEditMember(member)} className="p-2 text-yellow-400 hover:text-white bg-yellow-500/10 hover:bg-yellow-500 rounded-xl transition-all" title="Edit Member">
+                                            <button onClick={() => setEditMember(member)} className="p-2 text-yellow-400 hover:text-white bg-yellow-500/10 hover:bg-yellow-500 rounded-xl transition-all" title="Edit User">
                                                 <MdEdit />
                                             </button>
-                                            <button onClick={() => handleDelete(member.id_member, member.nama_lengkap)} className="p-2 text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 rounded-xl transition-all" title="Delete Member">
+                                            <button onClick={() => handleDelete(member.id_member, member.nama_lengkap)} className="p-2 text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500 rounded-xl transition-all" title="Delete User">
                                                 <MdDelete />
                                             </button>
                                         </div>
@@ -211,7 +241,7 @@ export default function Member() {
                             {filteredMembers.length === 0 && (
                                 <tr>
                                     <td colSpan="7" className="py-10 text-center text-gray-500 text-sm">
-                                        Tidak ditemukan data dengan kriteria role "member".
+                                        Tidak ada data member dengan role Admin atau Super Admin.
                                     </td>
                                 </tr>
                             )}
@@ -227,30 +257,26 @@ export default function Member() {
                         <div className="flex justify-between items-start border-b border-gray-800 pb-3">
                             <div>
                                 <h4 className="text-xl font-bold text-white">{selectedMember.nama_lengkap}</h4>
-                                <p className="text-xs text-primary3">ID: {selectedMember.id_member} • Lahir: {selectedMember.tgl_lahir || "-"}</p>
+                                <p className="text-xs text-primary3">ID: {selectedMember.id_member} • Role: <span className="uppercase font-bold text-white">{selectedMember.role || "Admin"}</span></p>
                             </div>
                             <button onClick={() => setSelectedMember(null)} className="text-gray-400 hover:text-white font-bold text-lg">✕</button>
                         </div>
                         <div className="space-y-4 text-sm max-h-[60vh] overflow-y-auto">
                             <div>
-                                <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Alamat Lengkap</span>
+                                <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Alamat Rumah</span>
                                 <p className="text-gray-300 bg-[#20223b] p-3 rounded-xl border border-gray-800/50 mt-1">{selectedMember.alamat || "-"}</p>
-                            </div>
-                            <div>
-                                <span className="text-xs text-red-400 font-bold uppercase tracking-wider">Catatan Medis</span>
-                                <p className="text-red-200 bg-red-500/5 p-3 rounded-xl border border-red-500/10 mt-1 font-medium">{selectedMember.catatan_medis || "Tidak ada riwayat medis khusus."}</p>
                             </div>
                             <div className="bg-[#20223b] border border-gray-800 p-4 rounded-xl space-y-2">
                                 <span className="text-xs font-bold uppercase text-amber-400 tracking-wider flex items-center gap-1">
-                                    <MdOutlineContactPhone /> Kontak Darurat
-                                </span >
+                                    <MdOutlineContactPhone /> Kontak Darurat Staff
+                                </span>
                                 <div className="grid grid-cols-2 gap-2 text-xs pt-1">
                                     <div>
-                                        <div className="text-gray-500">Nama Kontak</div>
+                                        <div className="text-gray-500">Hubungan / Nama</div>
                                         <div className="text-white font-bold text-sm mt-0.5">{selectedMember.nama_kontak_darurat || "-"}</div>
                                     </div>
                                     <div>
-                                        <div className="text-gray-500">No. HP Darurat</div>
+                                        <div className="text-gray-500">No. HP Hubungi</div>
                                         <div className="text-white font-bold text-sm mt-0.5">{selectedMember.kontak_darurat || "-"}</div>
                                     </div>
                                 </div>
@@ -261,12 +287,12 @@ export default function Member() {
                 </div>
             )}
 
-            {/* MODAL 2: ADD NEW MEMBER FORM */}
+            {/* MODAL 2: ADD NEW ADMIN FORM */}
             {addMember && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
                     <form onSubmit={handleAddSubmit} className="w-full max-w-2xl bg-[#1a1c33] border border-gray-800 rounded-2xl p-6 text-white shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center border-b border-gray-800 pb-3">
-                            <h4 className="text-xl font-bold">Add New Member Record</h4>
+                            <h4 className="text-xl font-bold">Add New Staff / Admin</h4>
                             <button type="button" onClick={() => setAddMember(null)} className="text-gray-400 hover:text-white">✕</button>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -277,6 +303,13 @@ export default function Member() {
                             <div>
                                 <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Email Address</label>
                                 <input type="email" value={addMember.email_address} onChange={(e) => setAddMember({...addMember, email_address: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm focus:border-primary2 outline-none" required />
+                            </div>
+                            <div>
+                                <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Pilih Role Akses</label>
+                                <select value={addMember.role} onChange={(e) => setAddMember({...addMember, role: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm text-white focus:border-primary2 outline-none" required>
+                                    <option value="admin">Admin</option>
+                                    <option value="super admin">Super Admin</option>
+                                </select>
                             </div>
                             <div>
                                 <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">No. Handphone</label>
@@ -295,10 +328,6 @@ export default function Member() {
                                 <input type="date" value={addMember.tgl_lahir} onChange={(e) => setAddMember({...addMember, tgl_lahir: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm focus:border-primary2 outline-none" required />
                             </div>
                             <div>
-                                <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Tanggal Berakhir Kontrak</label>
-                                <input type="date" value={addMember.tgl_berakhir} onChange={(e) => setAddMember({...addMember, tgl_berakhir: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm focus:border-primary2 outline-none" required />
-                            </div>
-                            <div>
                                 <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">PIN Akses Pintu</label>
                                 <div className="flex gap-2">
                                     <input type="text" maxLength="6" value={addMember.pin_akses} onChange={(e) => setAddMember({...addMember, pin_akses: e.target.value})} className="flex-1 bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm font-mono tracking-widest text-center" required />
@@ -306,10 +335,6 @@ export default function Member() {
                                         <MdVpnKey /> Reset
                                     </button>
                                 </div>
-                            </div>
-                            <div>
-                                <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Catatan Medis</label>
-                                <input type="text" value={addMember.catatan_medis} onChange={(e) => setAddMember({...addMember, catatan_medis: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm" placeholder="Opsional (Asma, Alergi)" />
                             </div>
                             <div>
                                 <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Nama Kontak Darurat</label>
@@ -326,18 +351,18 @@ export default function Member() {
                         </div>
                         <div className="flex gap-3 pt-4 border-t border-gray-800">
                             <button type="button" onClick={() => setAddMember(null)} className="flex-1 bg-gray-800 py-2.5 rounded-xl text-sm font-bold">Batal</button>
-                            <button type="submit" className="flex-1 bg-green-600 hover:bg-green-500 py-2.5 rounded-xl text-sm font-bold text-white shadow-lg transition-all">Submit & Simpan</button>
+                            <button type="submit" className="flex-1 bg-green-600 hover:bg-green-500 py-2.5 rounded-xl text-sm font-bold text-white shadow-lg transition-all">Submit Akun</button>
                         </div>
                     </form>
                 </div>
             )}
 
-            {/* MODAL 3: EDIT MEMBER FORM */}
+            {/* MODAL 3: EDIT ADMIN FORM */}
             {editMember && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
                     <form onSubmit={handleUpdateSubmit} className="w-full max-w-2xl bg-[#1a1c33] border border-gray-800 rounded-2xl p-6 text-white shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center border-b border-gray-800 pb-3">
-                            <h4 className="text-xl font-bold">Edit Member Record: <span className="text-primary2">{editMember.id_member}</span></h4>
+                            <h4 className="text-xl font-bold">Edit Authority: <span className="text-primary2">{editMember.id_member}</span></h4>
                             <button type="button" onClick={() => setEditMember(null)} className="text-gray-400 hover:text-white">✕</button>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -350,11 +375,18 @@ export default function Member() {
                                 <input type="email" value={editMember.email_address || ""} onChange={(e) => setEditMember({...editMember, email_address: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm" required />
                             </div>
                             <div>
+                                <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Ubah Role Akses</label>
+                                <select value={editMember.role || "admin"} onChange={(e) => setEditMember({...editMember, role: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm text-white focus:border-primary2 outline-none" required>
+                                    <option value="admin">Admin</option>
+                                    <option value="super admin">Super Admin</option>
+                                </select>
+                            </div>
+                            <div>
                                 <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">No. Handphone</label>
                                 <input type="text" value={editMember.no_hp || ""} onChange={(e) => setEditMember({...editMember, no_hp: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm" />
                             </div>
                             <div>
-                                <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Status Keanggotaan</label>
+                                <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Status Akun</label>
                                 <select value={editMember.status_member || "Aktif"} onChange={(e) => setEditMember({...editMember, status_member: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm text-white">
                                     <option value="Aktif">Aktif</option>
                                     <option value="Tidak Aktif">Tidak Aktif</option>
@@ -368,10 +400,6 @@ export default function Member() {
                                         <MdVpnKey /> Generate
                                     </button>
                                 </div>
-                            </div>
-                            <div>
-                                <label className="block text-xs text-gray-400 mb-1 font-semibold uppercase">Catatan Medis</label>
-                                <input type="text" value={editMember.catatan_medis || ""} onChange={(e) => setEditMember({...editMember, catatan_medis: e.target.value})} className="w-full bg-[#20223b] border border-gray-800 px-3 py-2 rounded-xl text-sm" />
                             </div>
                         </div>
                         <div className="flex gap-3 pt-4 border-t border-gray-800">

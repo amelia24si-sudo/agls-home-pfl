@@ -17,6 +17,7 @@ const Promo = React.lazy(() => import("./pages/Promos"));
 const Feedback = React.lazy(() => import("./pages/Feedback"));
 const Attendance = React.lazy(() => import("./pages/Attendance"));
 const Members = React.lazy(() => import("./pages/Member"));
+const Users = React.lazy(() => import("./pages/Users"));
 
 // Auth Pages
 const Login = React.lazy(() => import("./pages/Auth/Login"));
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/members" element={<Members />} />
+          <Route path="/users" element={<Users />} />
           
           <Route path="*" element={<NotFound />} />
           <Route path="400" element={<BadRequest />} />
