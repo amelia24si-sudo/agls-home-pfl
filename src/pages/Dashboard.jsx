@@ -219,7 +219,6 @@ export default function Dashboard() {
                                     <NativeSelectOption value="all" className="bg-[#151728] text-white">Semua Waktu</NativeSelectOption>
                                     <NativeSelectOption value="year" className="bg-[#151728] text-white">Per Tahun</NativeSelectOption>
                                     <NativeSelectOption value="month" className="bg-[#151728] text-white">Per Bulan</NativeSelectOption>
-                                    <NativeSelectOption value="day" className="bg-[#151728] text-white">Per Hari</NativeSelectOption>
                                 </NativeSelect>
 
                                 {/* 2. Dropdown Pilihan Tahun */}
