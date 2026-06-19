@@ -6,7 +6,8 @@ import {
     MdEdit, 
     MdDelete, 
     MdOutlineContactPhone,
-    MdVpnKey
+    MdVpnKey,
+    MdSearch
 } from "react-icons/md";
 import { PrimaryButton } from "../components/PrimaryButton";
 import { StatCard } from "../components/StatCard";
@@ -20,7 +21,10 @@ export default function Member() {
     const [selectedMember, setSelectedMember] = useState(null); // Detail Modal
     const [editMember, setEditMember] = useState(null); // Edit Modal
     
-    // 1. State baru untuk menampung data Modal Tambah Member
+    // State Baru: Input Query Pencarian
+    const [searchQuery, setSearchQuery] = useState("");
+
+    // State untuk menampung data Modal Tambah Member
     const [addMember, setAddMember] = useState(null); 
 
     // Ambil Data dari API Supabase
@@ -41,8 +45,16 @@ export default function Member() {
         getMembersData();
     }, []);
 
-    // 2. Filter data agar HANYA menampilkan user dengan role "member"
-    const filteredMembers = members.filter(m => m.role?.toLowerCase() === "member");
+    // 1. FILTER PERTAMA: Ambil yang bertipe role "member" saja
+    const memberOnlyList = members.filter(m => m.role?.toLowerCase() === "member");
+
+    // 2. FILTER KEDUA: Terapkan Query Search (Berdasarkan Nama atau ID Member)
+    const filteredMembers = memberOnlyList.filter((m) => {
+        const query = searchQuery.toLowerCase();
+        const matchNama = m.nama_lengkap?.toLowerCase().includes(query);
+        const matchID = m.id_member?.toLowerCase().includes(query);
+        return matchNama || matchID;
+    });
 
     // Fungsi Tambah Member Baru (CREATE)
     const handleAddSubmit = async (e) => {
@@ -93,10 +105,10 @@ export default function Member() {
         setTargetState({ ...target, pin_akses: randomPin });
     };
 
-    // Kalkulasi Statistik Otomatis khusus dari data yang sudah ter-filter ("member")
-    const totalMembers = filteredMembers.length;
-    const activeMembers = filteredMembers.filter(m => m.status_member === "Aktif").length;
-    const totalTransactions = filteredMembers.reduce((sum, m) => sum + (Number(m.frekuensi_transaksi) || 0), 0);
+    // Kalkulasi Statistik Otomatis tetap dari basis data "memberOnlyList" (sebelum diketik search)
+    const totalMembers = memberOnlyList.length;
+    const activeMembers = memberOnlyList.filter(m => m.status_member === "Aktif").length;
+    const totalTransactions = memberOnlyList.reduce((sum, m) => sum + (Number(m.frekuensi_transaksi) || 0), 0);
 
     if (loading) {
         return (
@@ -112,14 +124,13 @@ export default function Member() {
             {/* Top Bar Header */}
             <div className="flex justify-between items-center">
                 <h2 className="text-3xl font-bold text-white tracking-tight">Member Directory</h2>
-                {/* 3. Pasang aksi onClick untuk memicu inisialisasi Modal Tambah */}
                 <PrimaryButton 
                     icon={<MdPersonAdd />} 
                     onClick={() => setAddMember({
                         id_member: `M-${Math.floor(1000 + Math.random() * 9000)}`,
                         nama_lengkap: "",
                         email_address: "",
-                        password: "Password123", // Default password awal jika diisi admin
+                        password: "Password123", 
                         jenis_kelamin: "",
                         tgl_lahir: "",
                         no_hp: "",
@@ -127,13 +138,13 @@ export default function Member() {
                         tgl_gabung: new Date().toISOString().split("T")[0],
                         tgl_berakhir: "",
                         status_member: "Aktif",
-                        pin_akses: Math.floor(100000 + Math.random() * 900000).toString(), // Auto PIN di awal
+                        pin_akses: Math.floor(100000 + Math.random() * 900000).toString(), 
                         catatan_medis: "",
                         nama_kontak_darurat: "",
                         kontak_darurat: "",
                         frekuensi_transaksi: 0,
                         total_nominal_transaksi: 0,
-                        role: "member" // Dipaksa bertipe "member"
+                        role: "member" 
                     })}
                 >
                     Add Member
@@ -149,7 +160,25 @@ export default function Member() {
 
             {/* Main Member Records Table Container */}
             <CardContainer className="p-8">
-                <h3 className="text-white font-bold text-xl mb-6">Member Records</h3>
+                {/* Header Table + Input Search Field */}
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+                    <h3 className="text-white font-bold text-xl">Member Records</h3>
+                    
+                    {/* INPUT SEARCH BAR */}
+                    <div className="relative w-full sm:w-72">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500 text-lg">
+                            <MdSearch />
+                        </span>
+                        <input
+                            type="text"
+                            placeholder="Search name or ID member..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-[#151728] text-white placeholder-gray-500 border border-gray-800 focus:border-[#FF8A48] pl-10 pr-4 py-2 rounded-xl text-sm outline-none transition-colors"
+                        />
+                    </div>
+                </div>
+
                 <div className="overflow-x-auto">
                     <table className="w-full text-left whitespace-nowrap">
                         <thead>
@@ -164,7 +193,6 @@ export default function Member() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-800/50">
-                            {/* 4. Menggunakan filteredMembers alih-alih members mentah */}
                             {filteredMembers.map((member) => (
                                 <tr key={member.id_member} className="group hover:bg-white/5 transition-colors">
                                     <td className="py-5">
@@ -208,10 +236,12 @@ export default function Member() {
                                     </td>
                                 </tr>
                             ))}
+                            
+                            {/* State Jika Data Hasil Filter Kosong */}
                             {filteredMembers.length === 0 && (
                                 <tr>
                                     <td colSpan="7" className="py-10 text-center text-gray-500 text-sm">
-                                        Tidak ditemukan data dengan kriteria role "member".
+                                        Tidak ditemukan member dengan nama atau ID "{searchQuery}".
                                     </td>
                                 </tr>
                             )}
@@ -243,7 +273,7 @@ export default function Member() {
                             <div className="bg-[#20223b] border border-gray-800 p-4 rounded-xl space-y-2">
                                 <span className="text-xs font-bold uppercase text-amber-400 tracking-wider flex items-center gap-1">
                                     <MdOutlineContactPhone /> Kontak Darurat
-                                </span >
+                                </span>
                                 <div className="grid grid-cols-2 gap-2 text-xs pt-1">
                                     <div>
                                         <div className="text-gray-500">Nama Kontak</div>
