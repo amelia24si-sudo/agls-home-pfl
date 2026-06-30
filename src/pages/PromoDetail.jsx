@@ -1,12 +1,87 @@
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaTag, FaUsers, FaCalendarAlt, FaCheckCircle, FaChartLine } from "react-icons/fa";
-import promoData from "../assets/promos.json";
+import axios from "axios";
+
+// --- KONFIGURASI API SUPABASE ---
+const API_URL = "https://duwukjqwgtpvdfvudrcz.supabase.co/rest/v1/promos";
+const API_KEY = "sb_publishable_GnJ3SiBSbMuXix0AF0f3lA_4-buJFMo";
+
+const headers = {
+  apikey: API_KEY,
+  Authorization: `Bearer ${API_KEY}`,
+  "Content-Type": "application/json",
+};
+
+const promoAPI = {
+  async fetchPromos() {
+    const response = await axios.get(API_URL, { headers });
+    return response.data;
+  },
+  async updatePromo(id, data) {
+    const response = await axios.patch(`${API_URL}?id=eq.${id}`, data, {
+      headers: { ...headers, Prefer: "return=representation" },
+    });
+    return response.data;
+  },
+  async deletePromo(id) {
+    const response = await axios.delete(`${API_URL}?id=eq.${id}`, { headers });
+    return response.data;
+  },
+};
 
 export default function PromoDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const promo = promoData.find(p => p.id === id);
+    
+    // State untuk menyimpan data tunggal promo dan status loading
+    const [promo, setPromo] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+    // Fetch data berdasarkan ID saat komponen dimuat
+    useEffect(() => {
+        const getPromoDetail = async () => {
+            try {
+                const data = await promoAPI.fetchPromos();
+                // Menyamakan tipe data string/integer agar aman saat pencarian ID
+                const found = data.find(p => String(p.id) === String(id));
+                setPromo(found);
+            } catch (error) {
+                console.error("Gagal memuat detail promo:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        getPromoDetail();
+    }, [id]);
+
+    // Fungsi handler untuk menjeda (Pause) Campaign -> Mengubah status menjadi 'Expired'
+    const handlePauseCampaign = async () => {
+        if (!promo) return;
+        try {
+            await promoAPI.updatePromo(promo.id, { status: "Expired" });
+            setPromo({ ...promo, status: "Expired" });
+            alert("Campaign successfully paused!");
+        } catch (error) {
+            console.error("Gagal memperbarui status:", error);
+        }
+    };
+
+    // Fungsi handler untuk menghapus (Delete Forever) Campaign
+    const handleDeleteCampaign = async () => {
+        if (!promo) return;
+        if (window.confirm("Are you sure you want to delete this campaign forever?")) {
+            try {
+                await promoAPI.deletePromo(promo.id);
+                alert("Campaign deleted successfully!");
+                navigate('/promos');
+            } catch (error) {
+                console.error("Gagal menghapus campaign:", error);
+            }
+        }
+    };
+
+    if (loading) return <div className="p-10 text-white font-bold">Loading Campaign Data...</div>;
     if (!promo) return <div className="p-10 text-white font-bold">Campaign Not Found!</div>;
 
     return (
@@ -87,8 +162,8 @@ export default function PromoDetail() {
                     <div className="bg-[#1a1c30] border border-gray-800 rounded-[2.5rem] p-8">
                         <h4 className="text-white font-bold mb-6 uppercase text-xs tracking-widest">Quick Actions</h4>
                         <div className="space-y-3">
-                            <button className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 rounded-2xl font-bold transition-all">Pause Campaign</button>
-                            <button className="w-full border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white py-4 rounded-2xl font-bold transition-all">Delete Forever</button>
+                            <button onClick={handlePauseCampaign} className="w-full bg-gray-800 hover:bg-gray-700 text-white py-4 rounded-2xl font-bold transition-all">Pause Campaign</button>
+                            <button onClick={handleDeleteCampaign} className="w-full border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white py-4 rounded-2xl font-bold transition-all">Delete Forever</button>
                         </div>
                     </div>
                 </div>
