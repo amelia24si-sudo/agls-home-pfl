@@ -34,7 +34,7 @@ export default function Sidebar() {
 
             {/* Menu Section */}
             <nav id="sidebar-menu" className="flex flex-col px-4 space-y-2">
-                <NavLink to="/" className={navLinkStyles} end>
+                <NavLink to="/dashboard" className={navLinkStyles} end>
                     <MdSpaceDashboard className="text-2xl" />
                     <span>Dashboard</span>
                 </NavLink>

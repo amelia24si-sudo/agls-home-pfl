@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './assets/tailwind.css';
 import React from 'react';
@@ -9,6 +9,9 @@ import AuthLayout from './layouts/AuthLayout';
 import Loading from './components/Loading';
 import PromoDetail from './pages/PromoDetail';
 import Promos from './pages/Promos';
+
+// Public Landing Page
+const LandingPage = React.lazy(() => import("./pages/landing/LandingPage"));
 
 // Main Pages
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
@@ -34,9 +37,12 @@ export default function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
+        {/* Public Landing Page (no auth, no sidebar) */}
+        <Route path="/" element={<LandingPage />} />
+
         {/* Main Application Routes */}
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/promos" element={<Promos />} />
           <Route path="/promo/:id" element={<PromoDetail />} />
