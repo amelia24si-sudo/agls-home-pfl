@@ -50,7 +50,7 @@ export default function Login() {
 
                 // Opsional: Cek role jika Anda ingin membedakan halaman redirect
                 if (userValid.role === "admin" || userValid.role === "super admin") {
-                    navigate("/"); // Jika ada dashboard khusus admin
+                    navigate("/dashboard"); // Arahkan ke dashboard admin
                 }
             } else {
                 setError("Email atau Password salah!");
