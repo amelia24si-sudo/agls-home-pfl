@@ -48,9 +48,14 @@ export default function Login() {
                 // Simpan data login ke localStorage agar bisa diakses di halaman lain
                 localStorage.setItem("userLoggedIn", JSON.stringify(userValid));
 
-                // Opsional: Cek role jika Anda ingin membedakan halaman redirect
+                // Cek role untuk menentukan halaman redirect
                 if (userValid.role === "admin" || userValid.role === "super admin") {
                     navigate("/dashboard"); // Arahkan ke dashboard admin
+                } else if (userValid.role === "member") {
+                    navigate("/"); // Arahkan ke halaman utama/home jika role adalah member
+                } else {
+                    // Opsional: Antisipasi jika ada role lain yang tidak terdaftar
+                    navigate("/");
                 }
             } else {
                 setError("Email atau Password salah!");
