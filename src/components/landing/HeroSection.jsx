@@ -58,7 +58,7 @@ export default function HeroSection() {
                 <div className="relative">
                     <div className="absolute inset-0 bg-primary2/10 blur-3xl rounded-[3rem]"></div>
                     <img
-                        src={heroImg}
+                        src='/public/img/pexels-koolshooters-9945076.jpg'
                         alt="Zeus Gym training"
                         className="relative w-full max-w-lg mx-auto rounded-[2.5rem] border border-gray-800 shadow-2xl object-cover"
                     />
