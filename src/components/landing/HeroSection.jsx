@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaArrowRight, FaDumbbell } from "react-icons/fa";
-import heroImg from "../../assets/hero.png";
+import heroImg from "../../assets/pexels-koolshooters-9945076.jpg";
 
 export default function HeroSection() {
     return (
@@ -58,7 +58,7 @@ export default function HeroSection() {
                 <div className="relative">
                     <div className="absolute inset-0 bg-primary2/10 blur-3xl rounded-[3rem]"></div>
                     <img
-                        src='/src/assets/pexels-koolshooters-9945076.jpg'
+                        src={heroImg}
                         alt="Zeus Gym training"
                         className="relative w-full max-w-lg mx-auto rounded-[2.5rem] border border-gray-800 shadow-2xl object-cover"
                     />
