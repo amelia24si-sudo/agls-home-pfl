@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { FaDumbbell, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock } from "react-icons/fa";
+import Reveal from "./Reveal";
 
 export default function LandingFooter() {
     return (
         <footer id="contact" className="bg-[#151728] border-t border-gray-800 font-dmsans">
             <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
                 {/* Brand */}
-                <div className="md:col-span-1">
+                <Reveal direction="up" className="md:col-span-1">
                     <div className="flex items-center space-x-3 text-2xl font-black tracking-wider mb-4">
                         <FaDumbbell className="text-primary2 transform -rotate-45" />
                         <div>
@@ -17,10 +18,10 @@ export default function LandingFooter() {
                     <p className="text-primary3 text-sm leading-relaxed">
                         Power & Performance. Train like a god in a club built for results.
                     </p>
-                </div>
+                </Reveal>
 
                 {/* Contact */}
-                <div>
+                <Reveal direction="up" delay={120}>
                     <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-5">Contact</h4>
                     <ul className="space-y-4 text-primary3 text-sm">
                         <li className="flex items-start gap-3">
@@ -36,10 +37,10 @@ export default function LandingFooter() {
                             <span>hello@zeusgym.id</span>
                         </li>
                     </ul>
-                </div>
+                </Reveal>
 
                 {/* Operating hours */}
-                <div>
+                <Reveal direction="up" delay={240}>
                     <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-5">Operating Hours</h4>
                     <ul className="space-y-4 text-primary3 text-sm">
                         <li className="flex items-center gap-3">
@@ -51,10 +52,10 @@ export default function LandingFooter() {
                             <span>Sat - Sun: 07:00 - 23:00</span>
                         </li>
                     </ul>
-                </div>
+                </Reveal>
 
                 {/* Quick links */}
-                <div>
+                <Reveal direction="up" delay={360}>
                     <h4 className="text-white font-bold text-sm uppercase tracking-widest mb-5">Get Started</h4>
                     <ul className="space-y-4 text-sm">
                         <li>
@@ -70,7 +71,7 @@ export default function LandingFooter() {
                             <Link to="/register" className="text-primary2 font-bold hover:underline">Mulai Member</Link>
                         </li>
                     </ul>
-                </div>
+                </Reveal>
             </div>
 
             <div className="border-t border-gray-800/60">

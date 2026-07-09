@@ -4,6 +4,7 @@ import { FaArrowRight, FaTag, FaUsers, FaRegCalendarAlt } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { promoAPI } from "../../service/promoAPI";
+import Reveal from "./Reveal";
 
 export function PromoSection() {
     const [promos, setPromos] = useState([]);
@@ -40,7 +41,7 @@ export function PromoSection() {
     return (
         <section id="promos" className="bg-[#1c1e33] border-y border-gray-800">
             <div className="max-w-7xl mx-auto px-6 py-20 md:py-24">
-                <div className="text-center mb-14">
+                <Reveal direction="up" className="text-center mb-14">
                     <span className="text-primary2 text-xs font-bold uppercase tracking-widest">
                         Membership Offers
                     </span>
@@ -50,7 +51,7 @@ export function PromoSection() {
                     <p className="text-primary3 text-sm mt-4 max-w-2xl mx-auto">
                         Grab the best deals on memberships. Offers are updated in real time.
                     </p>
-                </div>
+                </Reveal>
 
                 {loading && (
                     <div className="flex flex-col items-center justify-center py-16 text-primary3">
@@ -76,9 +77,11 @@ export function PromoSection() {
 
                 {!loading && !error && promos.length > 0 && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {promos.map((promo) => (
-                            <div
+                        {promos.map((promo, i) => (
+                            <Reveal
                                 key={promo.id}
+                                direction="up"
+                                delay={i * 100}
                                 className="bg-[#20223b] rounded-3xl p-7 border border-gray-800 shadow-xl flex flex-col justify-between transition-all hover:border-primary2 hover:-translate-y-1"
                             >
                                 <div>
@@ -109,7 +112,7 @@ export function PromoSection() {
                                         Claim Offer <FaArrowRight />
                                     </Link>
                                 </div>
-                            </div>
+                            </Reveal>
                         ))}
                     </div>
                 )}

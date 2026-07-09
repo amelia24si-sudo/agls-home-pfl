@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom"; 
 import { Link as ScrollLink } from "react-scroll"; 
 import { FaDumbbell, FaBars, FaTimes } from "react-icons/fa";
@@ -12,10 +12,28 @@ const navItems = [
 
 export default function LandingNavbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 20);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, []);
 
     return (
-        <header className="sticky top-0 z-50 bg-[#151728]/90 backdrop-blur-md border-b border-gray-800 font-dmsans">
-            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <header
+            className={`sticky top-0 z-50 backdrop-blur-md border-b font-dmsans transition-all duration-300 ${
+                scrolled
+                    ? "bg-[#151728]/95 border-gray-800 shadow-lg shadow-black/30"
+                    : "bg-[#151728]/90 border-transparent"
+            }`}
+        >
+            <div
+                className={`max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-300 ${
+                    scrolled ? "h-16" : "h-20"
+                }`}
+            >
                 {/* Logo */}
                 <a href="#hero" className="flex items-center space-x-3 text-2xl font-black tracking-wider">
                     <FaDumbbell className="text-primary2 transform -rotate-45" />
