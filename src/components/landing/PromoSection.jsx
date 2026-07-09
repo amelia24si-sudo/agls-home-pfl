@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 import { FaArrowRight, FaTag, FaUsers, FaRegCalendarAlt } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
@@ -9,6 +9,15 @@ export function PromoSection() {
     const [promos, setPromos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    
+    const navigate = useNavigate();
+
+    // 1. Ambil data user dari localStorage (sesuai dengan yang disimpan di Login.jsx)
+    const storedUser = localStorage.getItem("userLoggedIn");
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    
+    // 2. Validasi status login khusus untuk role "member"
+    const isMemberLoggedIn = user && user.role === "member";
 
     useEffect(() => {
         let active = true;
@@ -36,6 +45,15 @@ export function PromoSection() {
             active = false;
         };
     }, []);
+
+    // 3. Fungsi untuk menangani klik tombol Claim Offer
+    const handleClaimClick = (promoTitle) => {
+        if (isMemberLoggedIn) {
+            alert(`Promo "${promoTitle}" has been claimed`);
+        } else {
+            navigate("/register");
+        }
+    };
 
     return (
         <section id="promos" className="bg-[#1c1e33] border-y border-gray-800">
@@ -102,12 +120,15 @@ export function PromoSection() {
                                             </span>
                                         )}
                                     </div>
-                                    <Link
-                                        to="/register"
-                                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all active:scale-95"
+                                    
+                                    {/* Menggunakan <button> murni agar navigasi terkontrol penuh oleh Javascript */}
+                                    <button
+                                        type="button"
+                                        onClick={() => handleClaimClick(promo.title)}
+                                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all active:scale-95 cursor-pointer"
                                     >
                                         Claim Offer <FaArrowRight />
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         ))}

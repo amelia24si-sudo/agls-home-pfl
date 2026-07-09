@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom"; 
+import { useState, useEffect } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom"; 
 import { Link as ScrollLink } from "react-scroll"; 
-import { FaDumbbell, FaBars, FaTimes } from "react-icons/fa";
+import { FaDumbbell, FaBars, FaTimes, FaSignOutAlt } from "react-icons/fa";
 
 const navItems = [
     { label: "Home", href: "hero" },
@@ -12,6 +12,20 @@ const navItems = [
 
 export default function LandingNavbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
+
+    // 1. Ambil data login user dari localStorage
+    const storedUser = localStorage.getItem("userLoggedIn");
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    const isLoggedIn = !!user;
+
+    // 2. Fungsi untuk menangani Logout
+    const handleLogout = () => {
+        localStorage.removeItem("userLoggedIn"); // Hapus data login
+        setIsOpen(false); // Tutup mobile menu jika terbuka
+        navigate("/"); // Redirect kembali ke Home
+        window.location.reload(); // Reload opsional untuk menyegarkan state komponen lain
+    };
 
     return (
         <header className="sticky top-0 z-50 bg-[#151728]/90 backdrop-blur-md border-b border-gray-800 font-dmsans">
@@ -42,20 +56,33 @@ export default function LandingNavbar() {
                     ))}
                 </nav>
 
-                {/* Desktop Auth Buttons */}
+                {/* Desktop Auth Buttons / Logout */}
                 <div className="hidden md:flex items-center gap-3">
-                    <RouterLink
-                        to="/login"
-                        className="px-5 py-2.5 rounded-2xl text-sm font-bold text-white border border-gray-700 hover:bg-white/5 transition-all"
-                    >
-                        Login
-                    </RouterLink>
-                    <RouterLink
-                        to="/register"
-                        className="px-5 py-2.5 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all active:scale-95"
-                    >
-                        Mulai Member
-                    </RouterLink>
+                    {isLoggedIn ? (
+                        /* TAMPILAN JIKA SUDAH LOGIN (DESKTOP) */
+                        <button
+                            onClick={handleLogout}
+                            className="px-5 py-2.5 rounded-2xl text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/20 flex items-center gap-2 transition-all active:scale-95 cursor-pointer"
+                        >
+                            <FaSignOutAlt /> Logout
+                        </button>
+                    ) : (
+                        /* TAMPILAN JIKA BELUM LOGIN (DESKTOP) */
+                        <>
+                            <RouterLink
+                                to="/login"
+                                className="px-5 py-2.5 rounded-2xl text-sm font-bold text-white border border-gray-700 hover:bg-white/5 transition-all"
+                            >
+                                Login
+                            </RouterLink>
+                            <RouterLink
+                                to="/register"
+                                className="px-5 py-2.5 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all active:scale-95"
+                            >
+                                Mulai Member
+                            </RouterLink>
+                        </>
+                    )}
                 </div>
 
                 {/* Mobile Toggle */}
@@ -85,21 +112,36 @@ export default function LandingNavbar() {
                             {item.label}
                         </ScrollLink>
                     ))}
+                    
+                    {/* Auth Area untuk Mobile */}
                     <div className="flex flex-col gap-3 pt-2">
-                        <RouterLink
-                            to="/login"
-                            onClick={() => setIsOpen(false)}
-                            className="w-full text-center px-5 py-3 rounded-2xl text-sm font-bold text-white border border-gray-700 hover:bg-white/5 transition-all"
-                        >
-                            Login
-                        </RouterLink>
-                        <RouterLink
-                            to="/register"
-                            onClick={() => setIsOpen(false)}
-                            className="w-full text-center px-5 py-3 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all"
-                        >
-                            Mulai Member
-                        </RouterLink>
+                        {isLoggedIn ? (
+                            /* TAMPILAN JIKA SUDAH LOGIN (MOBILE) */
+                            <button
+                                onClick={handleLogout}
+                                className="w-full text-center px-5 py-3 rounded-2xl text-sm font-bold text-white bg-red-600 hover:bg-red-700 flex items-center justify-center gap-2 transition-all"
+                            >
+                                <FaSignOutAlt /> Logout
+                            </button>
+                        ) : (
+                            /* TAMPILAN JIKA BELUM LOGIN (MOBILE) */
+                            <>
+                                <RouterLink
+                                    to="/login"
+                                    onClick={() => setIsOpen(false)}
+                                    className="w-full text-center px-5 py-3 rounded-2xl text-sm font-bold text-white border border-gray-700 hover:bg-white/5 transition-all"
+                                >
+                                    Login
+                                </RouterLink>
+                                <RouterLink
+                                    to="/register"
+                                    onClick={() => setIsOpen(false)}
+                                    className="w-full text-center px-5 py-3 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all"
+                                >
+                                    Mulai Member
+                                </RouterLink>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

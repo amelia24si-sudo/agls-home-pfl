@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll"; // 1. Tetap mengimpor react-scroll
 import { FaArrowRight, FaDumbbell } from "react-icons/fa";
 import heroImg from "../../assets/pexels-koolshooters-9945076.jpg";
 
@@ -29,12 +30,17 @@ export default function HeroSection() {
                         >
                             Mulai Member <FaArrowRight />
                         </Link>
-                        <a
-                            href="#promos"
-                            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-bold text-white border border-gray-700 hover:bg-white/5 transition-all"
+                        
+                        {/* 2. Mengubah tag <a> menjadi <ScrollLink> tanpa menghapus class bawaan */}
+                        <ScrollLink
+                            to="promos"          
+                            smooth={true}        
+                            duration={500}       
+                            offset={-70}         
+                            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-bold text-white border border-gray-700 hover:bg-white/5 cursor-pointer transition-all"
                         >
                             View Pricing
-                        </a>
+                        </ScrollLink>
                     </div>
 
                     {/* Quick stats */}
