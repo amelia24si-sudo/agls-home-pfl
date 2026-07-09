@@ -1,9 +1,29 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Link as ScrollLink } from "react-scroll"; // 1. Tetap mengimpor react-scroll
+import { Link as ScrollLink } from "react-scroll"; 
 import { FaArrowRight, FaDumbbell } from "react-icons/fa";
 import heroImg from "../../assets/pexels-koolshooters-9945076.jpg";
 
 export default function HeroSection() {
+    // State reaktif untuk mendeteksi perubahan status login di halaman utama
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("userLoggedIn");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const storedUser = localStorage.getItem("userLoggedIn");
+            setUser(storedUser ? JSON.parse(storedUser) : null);
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
+    }, []);
+
+    // Variabel pengecekan: True jika user BELUM login
+    const isNotLoggedIn = !user;
+
     return (
         <section id="hero" className="relative overflow-hidden">
             {/* Glow decorations */}
@@ -24,14 +44,17 @@ export default function HeroSection() {
                         membership plans. Start your fitness journey today and train like a god.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <Link
-                            to="/register"
-                            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all active:scale-95"
-                        >
-                            Mulai Member <FaArrowRight />
-                        </Link>
                         
-                        {/* 2. Mengubah tag <a> menjadi <ScrollLink> tanpa menghapus class bawaan */}
+                        {/* Tombol ini otomatis hilang seketika jika user login */}
+                        {isNotLoggedIn && (
+                            <Link
+                                to="/register"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all active:scale-95"
+                            >
+                                Start Membership <FaArrowRight />
+                            </Link>
+                        )}
+                        
                         <ScrollLink
                             to="promos"          
                             smooth={true}        
