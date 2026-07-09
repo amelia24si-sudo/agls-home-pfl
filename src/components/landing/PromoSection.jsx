@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
-import { FaArrowRight, FaTag, FaUsers, FaRegCalendarAlt } from "react-icons/fa";
+import { FaArrowRight, FaTag, FaUsers, FaRegCalendarAlt, FaCheckCircle, FaTimes } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { BsFillExclamationDiamondFill } from "react-icons/bs";
 import { promoAPI } from "../../service/promoAPI";
@@ -10,9 +10,13 @@ export function PromoSection() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     
+    // --- STATE UNTUK POP-UP MODAL ---
+    const [showModal, setShowModal] = useState(false);
+    const [claimedPromoTitle, setClaimedPromoTitle] = useState("");
+    
     const navigate = useNavigate();
 
-    // 1. Ambil data user dari localStorage (sesuai dengan yang disimpan di Login.jsx)
+    // 1. Ambil data user dari localStorage
     const storedUser = localStorage.getItem("userLoggedIn");
     const user = storedUser ? JSON.parse(storedUser) : null;
     
@@ -49,14 +53,16 @@ export function PromoSection() {
     // 3. Fungsi untuk menangani klik tombol Claim Offer
     const handleClaimClick = (promoTitle) => {
         if (isMemberLoggedIn) {
-            alert(`Promo "${promoTitle}" has been claimed`);
+            // Tampilkan custom pop-up modal modal
+            setClaimedPromoTitle(promoTitle);
+            setShowModal(true);
         } else {
             navigate("/register");
         }
     };
 
     return (
-        <section id="promos" className="bg-[#1c1e33] border-y border-gray-800">
+        <section id="promos" className="bg-[#1c1e33] border-y border-gray-800 relative">
             <div className="max-w-7xl mx-auto px-6 py-20 md:py-24">
                 <div className="text-center mb-14">
                     <span className="text-primary2 text-xs font-bold uppercase tracking-widest">
@@ -121,7 +127,6 @@ export function PromoSection() {
                                         )}
                                     </div>
                                     
-                                    {/* Menggunakan <button> murni agar navigasi terkontrol penuh oleh Javascript */}
                                     <button
                                         type="button"
                                         onClick={() => handleClaimClick(promo.title)}
@@ -135,6 +140,54 @@ export function PromoSection() {
                     </div>
                 )}
             </div>
+
+            {/* ==================== CUSTOM POP-UP MODAL TAMPILAN ==================== */}
+            {showModal && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+                    {/* Backdrop Transparan Gelap */}
+                    <div 
+                        className="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+                        onClick={() => setShowModal(false)}
+                    />
+                    
+                    {/* Kotak Modal */}
+                    <div className="bg-[#20223b] border border-gray-800 w-full max-w-md rounded-3xl p-6 text-center shadow-2xl relative z-10 transform scale-100 transition-all animate-in fade-in zoom-in-95 duration-200 font-dmsans">
+                        
+                        {/* Tombol Close Pojok Kanan Atas */}
+                        <button 
+                            onClick={() => setShowModal(false)}
+                            className="absolute top-4 right-4 text-primary3 hover:text-white transition-colors p-1 rounded-xl hover:bg-white/5"
+                        >
+                            <FaTimes className="text-lg" />
+                        </button>
+
+                        {/* Ikon Sukses */}
+                        <div className="w-16 h-16 bg-green-500/10 text-green-400 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-green-500/20">
+                            <FaCheckCircle className="text-3xl" />
+                        </div>
+
+                        {/* Judul & Deskripsi Sesi Pop-up */}
+                        <h3 className="text-white font-black text-2xl mb-2">
+                            Claim Successful!
+                        </h3>
+                        <p className="text-primary3 text-sm leading-relaxed px-2">
+                            Congratulations! You have successfully claimed the promo: <br />
+                            <span className="text-primary2 font-bold inline-block mt-1">"{claimedPromoTitle}"</span>
+                        </p>
+
+                        <div className="mt-6 pt-5 border-t border-gray-800/60">
+                            <button
+                                type="button"
+                                onClick={() => setShowModal(false)}
+                                className="w-full py-3 bg-primary2 hover:bg-[#e07a3d] text-white font-bold text-sm rounded-2xl transition-all shadow-lg shadow-primary2/10 active:scale-98"
+                            >
+                                Awesome, Got It!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* ===================================================================== */}
         </section>
     );
 }
