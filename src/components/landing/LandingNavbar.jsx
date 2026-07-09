@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom"; 
+import { Link as ScrollLink } from "react-scroll"; 
 import { FaDumbbell, FaBars, FaTimes } from "react-icons/fa";
 
 const navItems = [
-    { label: "Home", href: "#hero" },
-    { label: "Features", href: "#features" },
-    { label: "Pricing", href: "#promos" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "hero" },
+    { label: "Features", href: "features" },
+    { label: "Pricing", href: "promos" },
+    { label: "Contact", href: "contact" },
 ];
 
 export default function LandingNavbar() {
@@ -27,30 +28,34 @@ export default function LandingNavbar() {
                 {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center space-x-8">
                     {navItems.map((item) => (
-                        <a
+                        <ScrollLink 
+                            to={item.href}
+                            spy={true}
+                            smooth={true}
+                            offset={-80}
+                            duration={500}
                             key={item.href}
-                            href={item.href}
-                            className="text-primary3 hover:text-white text-sm font-semibold transition-colors"
+                            className="text-primary3 hover:text-white text-sm font-semibold transition-colors cursor-pointer"
                         >
                             {item.label}
-                        </a>
+                        </ScrollLink>
                     ))}
                 </nav>
 
                 {/* Desktop Auth Buttons */}
                 <div className="hidden md:flex items-center gap-3">
-                    <Link
+                    <RouterLink
                         to="/login"
                         className="px-5 py-2.5 rounded-2xl text-sm font-bold text-white border border-gray-700 hover:bg-white/5 transition-all"
                     >
                         Login
-                    </Link>
-                    <Link
+                    </RouterLink>
+                    <RouterLink
                         to="/register"
                         className="px-5 py-2.5 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all active:scale-95"
                     >
                         Mulai Member
-                    </Link>
+                    </RouterLink>
                 </div>
 
                 {/* Mobile Toggle */}
@@ -67,28 +72,34 @@ export default function LandingNavbar() {
             {isOpen && (
                 <div className="md:hidden border-t border-gray-800 bg-[#151728] px-6 py-4 space-y-3">
                     {navItems.map((item) => (
-                        <a
+                        <ScrollLink
                             key={item.href}
-                            href={item.href}
+                            to={item.href}
+                            spy={true}
+                            smooth={true}
+                            offset={-80}
+                            duration={500}
                             onClick={() => setIsOpen(false)}
-                            className="block text-primary3 hover:text-white text-sm font-semibold py-2 transition-colors"
+                            className="block text-primary3 hover:text-white text-sm font-semibold py-2 transition-colors cursor-pointer"
                         >
                             {item.label}
-                        </a>
+                        </ScrollLink>
                     ))}
                     <div className="flex flex-col gap-3 pt-2">
-                        <Link
+                        <RouterLink
                             to="/login"
+                            onClick={() => setIsOpen(false)}
                             className="w-full text-center px-5 py-3 rounded-2xl text-sm font-bold text-white border border-gray-700 hover:bg-white/5 transition-all"
                         >
                             Login
-                        </Link>
-                        <Link
+                        </RouterLink>
+                        <RouterLink
                             to="/register"
+                            onClick={() => setIsOpen(false)}
                             className="w-full text-center px-5 py-3 rounded-2xl text-sm font-bold text-white bg-primary2 hover:bg-[#e07a3d] shadow-lg shadow-primary2/20 transition-all"
                         >
                             Mulai Member
-                        </Link>
+                        </RouterLink>
                     </div>
                 </div>
             )}

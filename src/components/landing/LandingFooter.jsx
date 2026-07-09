@@ -25,11 +25,11 @@ export default function LandingFooter() {
                     <ul className="space-y-4 text-primary3 text-sm">
                         <li className="flex items-start gap-3">
                             <FaMapMarkerAlt className="text-primary2 mt-1 flex-shrink-0" />
-                            <span>Jl. Olahraga No. 24, Pekanbaru, Riau</span>
+                            <span>Jl. Yos Sudarso, Limbungan Baru, Kec. Rumbai, Pekanbaru, Riau</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <FaPhoneAlt className="text-primary2 flex-shrink-0" />
-                            <span>+62 812 3456 7890</span>
+                            <span>+62 852-6655-8702</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <FaEnvelope className="text-primary2 flex-shrink-0" />
@@ -44,11 +44,11 @@ export default function LandingFooter() {
                     <ul className="space-y-4 text-primary3 text-sm">
                         <li className="flex items-center gap-3">
                             <FaClock className="text-primary2 flex-shrink-0" />
-                            <span>Mon - Fri: 05:00 - 23:00</span>
+                            <span>Mon - Fri: 05:00 - 22:00</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <FaClock className="text-primary2 flex-shrink-0" />
-                            <span>Sat - Sun: 07:00 - 21:00</span>
+                            <span>Sat - Sun: 07:00 - 23:00</span>
                         </li>
                     </ul>
                 </div>

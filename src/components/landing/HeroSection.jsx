@@ -40,8 +40,8 @@ export default function HeroSection() {
                     {/* Quick stats */}
                     <div className="flex gap-8 justify-center lg:justify-start mt-14">
                         {[
-                            { value: "2K+", label: "Active Members" },
-                            { value: "50+", label: "Equipment Units" },
+                            { value: "157", label: "Active Members" },
+                            { value: "10+", label: "Equipment Units" },
                             { value: "24/7", label: "Open Access" },
                         ].map((stat) => (
                             <div key={stat.label}>
