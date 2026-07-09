@@ -1,4 +1,5 @@
 import { FaDumbbell, FaRunning, FaLock, FaWifi } from "react-icons/fa";
+import Reveal from "./Reveal";
 
 const features = [
     {
@@ -26,7 +27,7 @@ const features = [
 export default function FeaturesSection() {
     return (
         <section id="features" className="max-w-7xl mx-auto px-6 py-20 md:py-24">
-            <div className="text-center mb-14">
+            <Reveal direction="up" className="text-center mb-14">
                 <span className="text-primary2 text-xs font-bold uppercase tracking-widest">
                     Our Facilities
                 </span>
@@ -36,14 +37,16 @@ export default function FeaturesSection() {
                 <p className="text-primary3 text-sm mt-4 max-w-2xl mx-auto">
                     Premium amenities designed to make every workout effective, comfortable, and motivating.
                 </p>
-            </div>
+            </Reveal>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {features.map((feature) => {
+                {features.map((feature, i) => {
                     const Icon = feature.icon;
                     return (
-                        <div
+                        <Reveal
                             key={feature.title}
+                            direction="up"
+                            delay={i * 120}
                             className="bg-[#20223b] rounded-3xl p-7 border border-gray-800 shadow-xl transition-all hover:border-primary2 hover:-translate-y-1"
                         >
                             <div className="w-14 h-14 bg-primary2/10 rounded-2xl flex items-center justify-center mb-6">
@@ -51,7 +54,7 @@ export default function FeaturesSection() {
                             </div>
                             <h3 className="text-white font-bold text-lg mb-2">{feature.title}</h3>
                             <p className="text-primary3 text-sm leading-relaxed">{feature.desc}</p>
-                        </div>
+                        </Reveal>
                     );
                 })}
             </div>
