@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import './assets/tailwind.css';
 import React from 'react';
 
@@ -33,24 +33,49 @@ const BadRequest = React.lazy(() => import("./pages/NotFound").then(module => ({
 const Unauthorized = React.lazy(() => import("./pages/NotFound").then(module => ({ default: module.Unauthorized })));
 const Forbidden = React.lazy(() => import("./pages/NotFound").then(module => ({ default: module.Forbidden })));
 
+// ==================== PROTECTED ROUTE (GUARD) BARU ====================
+function ProtectedRoute({ allowedRoles }) {
+  const storedUser = localStorage.getItem("userLoggedIn");
+  const user = storedUser ? JSON.parse(storedUser) : null;
+
+  // 1. Jika belum login sama sekali, lempar ke halaman login
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // 2. Jika role TIDAK diizinkan (misal: "member"), langsung redirect ke Landing Page ("/")
+  if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/" replace />;
+  }
+
+  // 3. Jika lolos verifikasi (admin/super admin), tampilkan halaman dashboard
+  return <Outlet />;
+}
+// ==========================================================================
+
 export default function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        {/* Public Landing Page (no auth, no sidebar) */}
+        {/* Public Landing Page */}
         <Route path="/" element={<LandingPage />} />
 
-        {/* Main Application Routes */}
+        {/* Route Khusus Admin & Super Admin */}
+        <Route element={<ProtectedRoute allowedRoles={["admin", "super admin"]} />}>
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/promos" element={<Promos />} />
+            <Route path="/promo/:id" element={<PromoDetail />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/attendance" element={<Attendance />} />
+            <Route path="/members" element={<Members />} />
+            <Route path="/users" element={<Users />} />
+          </Route>
+        </Route>
+
+        {/* Route Umum / Error */}
         <Route element={<MainLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/promos" element={<Promos />} />
-          <Route path="/promo/:id" element={<PromoDetail />} />
-          <Route path="/feedback" element={<Feedback />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/members" element={<Members />} />
-          <Route path="/users" element={<Users />} />
-          
           <Route path="*" element={<NotFound />} />
           <Route path="400" element={<BadRequest />} />
           <Route path="401" element={<Unauthorized />} />
